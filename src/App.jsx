@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const NAV_LINKS = [
   { href: "#music", label: "Music", className: "nav__link" },
   { href: "#video", label: "Video", className: "nav__link" },
@@ -38,7 +40,7 @@ function SiteNav({ isMenuOpen, isNavHidden, onToggleMenu, onMenuClick }) {
       <div className="nav__inner">
         <a className="brand" href="#top" aria-label="Turquoise Steel Home">
           <span className="brand__icon" aria-hidden="true">
-            <img src="images/favicon-64.svg" width="40" height="40" alt="" />
+            <img src="/images/favicon-64.svg" width="40" height="40" alt="" />
           </span>
           <span className="brand__name">Turquoise Steel</span>
         </a>
@@ -77,7 +79,7 @@ function HeroSection() {
     <section id="top" className="hero">
       <div className="hero__bg" aria-hidden="true">
         <img
-          src="images/splash.jpg"
+          src="/images/splash.jpg"
           alt=""
           className="hero__bgImage"
           loading="eager"
@@ -441,10 +443,10 @@ function Footer() {
 }
 
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isNavHidden, setIsNavHidden] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavHidden, setIsNavHidden] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let lastY = window.scrollY;
     let ticking = false;
 
@@ -510,8 +512,4 @@ function App() {
   );
 }
 
-const rootElement = document.getElementById("root");
-
-if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<App />);
-}
+export default App;

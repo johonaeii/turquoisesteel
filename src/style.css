@@ -51,7 +51,7 @@ body {
     radial-gradient(900px 500px at 80% 30%, rgba(217, 70, 239, 0.14), transparent 60%),
     radial-gradient(900px 500px at 50% 80%, rgba(16, 185, 129, 0.12), transparent 60%),
     linear-gradient(180deg, rgba(7, 9, 15, 0.62), rgba(7, 9, 15, 0.92)),
-    url("images/background.jpg");
+    url("/images/background.jpg");
   background-size: auto, auto, auto, auto, cover;
   background-position: center;
   background-repeat: no-repeat;
