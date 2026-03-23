@@ -478,6 +478,26 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.overflow = isMenuOpen && window.innerWidth <= 860 ? "hidden" : "";
+
+    return () => {
+      root.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 860) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleMenuClick = (event) => {
     if (event.target instanceof HTMLAnchorElement) {
       setIsMenuOpen(false);
