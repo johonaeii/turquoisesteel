@@ -334,8 +334,19 @@ function SubscribeSection() {
             <p className="p">Get show announcements + unreleased demos.</p>
           </div>
 
-          <form className="cta__form" name="newsletter" method="post" data-netlify="true">
+          <form
+            className="cta__form"
+            name="newsletter"
+            method="post"
+            action="/"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+          >
             <input type="hidden" name="form-name" value="newsletter" />
+            <p className="sr-only" hidden>
+              <label htmlFor="newsletterBotField">Do not fill this out</label>
+              <input id="newsletterBotField" name="bot-field" type="text" tabIndex="-1" autoComplete="off" />
+            </p>
             <label className="sr-only" htmlFor="newsletterEmail">
               Email
             </label>
@@ -369,8 +380,19 @@ function ContactSection() {
 
         <div className="grid grid--2">
           <article className="panel">
-            <form className="form" name="contact" method="post" data-netlify="true">
+            <form
+              className="form"
+              name="contact"
+              method="post"
+              action="/"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+            >
               <input type="hidden" name="form-name" value="contact" />
+              <p className="sr-only" hidden>
+                <label htmlFor="contactBotField">Do not fill this out</label>
+                <input id="contactBotField" name="bot-field" type="text" tabIndex="-1" autoComplete="off" />
+              </p>
 
               <div className="field">
                 <label htmlFor="name">Name</label>
