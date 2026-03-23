@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanks | Turquoise Steel</title>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon-64.svg" />
+    <style>
+      :root {
+        --bg: #07090f;
+        --panel: rgba(10, 12, 20, 0.72);
+        --stroke: rgba(255, 255, 255, 0.1);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.74);
+        --turquoise: #2dd4bf;
+        --magenta: #d946ef;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg);
+        background-image:
+          radial-gradient(1000px 600px at 20% 10%, rgba(59, 130, 246, 0.18), transparent 60%),
+          radial-gradient(900px 500px at 80% 30%, rgba(217, 70, 239, 0.14), transparent 60%),
+          radial-gradient(900px 500px at 50% 80%, rgba(16, 185, 129, 0.12), transparent 60%);
+      }
+
+      main {
+        width: min(100%, 720px);
+        padding: clamp(24px, 5vw, 40px);
+        border-radius: 24px;
+        background: var(--panel);
+        border: 1px solid var(--stroke);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(12px);
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .eyebrow {
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--muted);
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(32px, 6vw, 54px);
+        line-height: 1.02;
+      }
+
+      .copy {
+        max-width: 52ch;
+        color: var(--muted);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 16px;
+        border-radius: 14px;
+        font-weight: 800;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .primary {
+        color: #001012;
+        background: linear-gradient(135deg, var(--turquoise), var(--magenta));
+      }
+
+      .secondary {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      @media (max-width: 520px) {
+        .actions {
+          display: grid;
+        }
+
+        a {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Message received</p>
+      <h1>Thanks for reaching out.</h1>
+      <p class="copy">
+        Your submission was sent to Turquoise Steel's Netlify form inbox. If email notifications are enabled in
+        Netlify, a copy will also be sent to <strong>turquoisesteel505@gmail.com</strong>.
+      </p>
+      <div class="actions">
+        <a class="primary" href="/">Back to site</a>
+        <a class="secondary" href="mailto:turquoisesteel505@gmail.com">Email directly</a>
+      </div>
+    </main>
+  </body>
+</html>

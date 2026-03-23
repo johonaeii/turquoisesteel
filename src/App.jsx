@@ -338,7 +338,7 @@ function SubscribeSection() {
             className="cta__form"
             name="newsletter"
             method="post"
-            action="/"
+            action="/thank-you.html"
             data-netlify="true"
             netlify-honeypot="bot-field"
           >
@@ -384,7 +384,7 @@ function ContactSection() {
               className="form"
               name="contact"
               method="post"
-              action="/"
+              action="/thank-you.html"
               data-netlify="true"
               netlify-honeypot="bot-field"
             >
