@@ -13,18 +13,21 @@ const NAV_LINKS = [
 const SHOWS = [
   {
     date: "Apr 24, 2026",
-    venue: "Rezz Rock n Blues • Flock of Moons | Albuquerque, NM",
-    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20Mar%2015%2C%202026"
+    venue: "Rezz Rock n Blues - Flock of Moons",
+    location: "Albuquerque, NM",
+    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20Apr%2024%2C%202026"
   },
   {
     date: "May 17, 2026",
     venue: "Crawdaddy Blues Fest",
-    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20Apr%2002%2C%202026"
+    location: "New Mexico",
+    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20May%2017%2C%202026"
   },
   {
     date: "May 24, 2026",
     venue: "Canyon Blues",
-    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20Apr%2020%2C%202026"
+    location: "New Mexico",
+    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20May%2024%2C%202026"
   }
 ];
 
@@ -34,20 +37,44 @@ const SOCIAL_LINKS = [
   { href: "https://open.spotify.com/search/Turquoise%20Steel", label: "Spotify" }
 ];
 
+const HERO_FACTS = [
+  { label: "Based in", value: "Albuquerque, NM" },
+  { label: "Sound", value: "Blues, rock, soul" },
+  { label: "Booking", value: "45 to 90 minute sets" }
+];
+
+const BOOKING_POINTS = [
+  "Family-led live act rooted in Navajo country storytelling and blues tradition.",
+  "Flexible set times for festivals, listening rooms, community events, and private bookings.",
+  "Direct communication for routing, technical details, and availability."
+];
+
+function SectionIntro({ eyebrow, title, description, align = "left" }) {
+  return (
+    <div className={`section__head${align === "center" ? " section__head--center" : ""}`}>
+      {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+      <h2 className="h2">{title}</h2>
+      {description ? <p className="p">{description}</p> : null}
+    </div>
+  );
+}
+
 function SiteNav({ isMenuOpen, isNavHidden, onToggleMenu, onMenuClick }) {
   return (
-    <header className={`nav${isNavHidden ? " nav--hidden" : ""}`} id="siteNav" role="banner">
+    <header className={`nav${isNavHidden ? " nav--hidden" : ""}`} role="banner">
       <div className="nav__inner">
         <a className="brand" href="#top" aria-label="Turquoise Steel Home">
           <span className="brand__icon" aria-hidden="true">
             <img src="/images/favicon-64.svg" width="40" height="40" alt="" />
           </span>
-          <span className="brand__name">Turquoise Steel</span>
+          <span className="brand__text">
+            <span className="brand__eyebrow">Navajo blues band</span>
+            <span className="brand__name">Turquoise Steel</span>
+          </span>
         </a>
 
         <button
-          className="nav__toggle"
-          id="navToggle"
+          className={`nav__toggle${isMenuOpen ? " is-open" : ""}`}
           type="button"
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           aria-controls="navMenu"
@@ -88,31 +115,58 @@ function HeroSection() {
         />
       </div>
       <div className="hero__overlay" aria-hidden="true"></div>
+
       <div className="container hero__content">
-        <div className="hero__card">
-          <p className="kicker">Navajo Family Blues Band</p>
-          <h1 className="title">Turquoise Steel</h1>
-          <p className="subtitle">Rock from the rez that rocks</p>
+        <div className="hero__layout">
+          <div className="hero__main">
+            <p className="kicker">Navajo Family Blues Band</p>
+            <h1 className="title">Turquoise Steel</h1>
+            <p className="subtitle">
+              Electric blues and desert rock built for festival stages, intimate rooms, and late-night sets.
+            </p>
 
-          <div className="hero__actions">
-            <a className="btn btn--primary" href="#music">
-              Listen
-            </a>
-            <a className="btn btn--ghost" href="#subscribe">
-              Join email list
-            </a>
+            <div className="hero__actions">
+              <a className="btn btn--primary" href="#music">
+                Listen now
+              </a>
+              <a className="btn btn--ghost" href="#shows">
+                See upcoming shows
+              </a>
+            </div>
+
+            <div className="chip" role="note">
+              <span className="chip__dot" aria-hidden="true"></span>
+              <span>New music, live video, and booking info in one streamlined home page.</span>
+            </div>
           </div>
 
-          <div className="chip" role="note">
-            <span className="chip__dot" aria-hidden="true"></span>
-            <span>Electrifying blues band from Navajo country</span>
-          </div>
+          <aside className="hero__panel" aria-label="Band overview">
+            <p className="hero__panelLabel">Current snapshot</p>
+            <div className="hero__facts">
+              {HERO_FACTS.map((fact) => (
+                <div key={fact.label} className="statCard">
+                  <span className="statCard__label">{fact.label}</span>
+                  <strong className="statCard__value">{fact.value}</strong>
+                </div>
+              ))}
+            </div>
 
-          <div className="hero__meta">
-            <span className="metaPill">Albuquerque, NM</span>
-            <span className="metaPill">Blues / Rock</span>
-            <span className="metaPill">30–90 min sets</span>
-          </div>
+            <div className="hero__spotlight">
+              <p className="hero__spotlightLabel">Featured track</p>
+              <h2 className="hero__spotlightTitle">Hitchhiking Blues</h2>
+              <p className="p p--muted">
+                Start with the latest release, then move into the live video and show calendar.
+              </p>
+              <a
+                className="link link--arrow"
+                href="https://open.spotify.com/track/6yDxt1kXjggMO4TFYxQfVi"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open on Spotify
+              </a>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -123,20 +177,22 @@ function MusicSection() {
   return (
     <section id="music" className="section">
       <div className="container">
-        <div className="section__head">
-          <h2 className="h2">Music</h2>
-          <p className="p">Latest release</p>
-        </div>
+        <SectionIntro
+          eyebrow="Listen"
+          title="A cleaner music section with quick paths into the catalog."
+          description="Two featured Spotify embeds stay readable on mobile while giving visitors an easy way to play, save, or follow."
+        />
 
         <div className="grid grid--2">
           <article className="panel">
-            <h3 className="h3">Spotify • Top Track</h3>
-            <p className="p p--muted">Top track spotlight: Navajo Outlaw.</p>
+            <p className="panel__eyebrow">Top track</p>
+            <h3 className="h3">Navajo Outlaw</h3>
+            <p className="p p--muted">A fast entry point for first-time listeners landing on the site.</p>
 
             <div className="embed">
               <iframe
-                title="Second platform embed"
-                style={{ borderRadius: "12px" }}
+                title="Spotify embed for Navajo Outlaw"
+                style={{ borderRadius: "18px" }}
                 src="https://open.spotify.com/embed/track/7Eks90sec4CaJCiD5kK1iG?utm_source=generator"
                 width="100%"
                 height="352"
@@ -153,27 +209,28 @@ function MusicSection() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Open in Spotify
+                Play on Spotify
               </a>
               <a
                 className="btn btn--ghost"
-                href="https://open.spotify.com/track/7Eks90sec4CaJCiD5kK1iG"
+                href="https://open.spotify.com/search/Turquoise%20Steel"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Share track
+                Browse artist page
               </a>
             </div>
           </article>
 
-          <article className="panel">
-            <h3 className="h3">Spotify • Latest Release</h3>
-            <p className="p p--muted">Featured single: Hitchhiking Blues.</p>
+          <article className="panel panel--tinted">
+            <p className="panel__eyebrow">Latest release</p>
+            <h3 className="h3">Hitchhiking Blues</h3>
+            <p className="p p--muted">Featured release card with a stronger visual anchor and simpler actions.</p>
 
             <div className="embed">
               <iframe
-                title="Spotify embed"
-                style={{ borderRadius: "12px" }}
+                title="Spotify embed for Hitchhiking Blues"
+                style={{ borderRadius: "18px" }}
                 src="https://open.spotify.com/embed/track/6yDxt1kXjggMO4TFYxQfVi?utm_source=generator"
                 width="100%"
                 height="352"
@@ -198,7 +255,7 @@ function MusicSection() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Save the track
+                Save this track
               </a>
             </div>
           </article>
@@ -212,18 +269,36 @@ function VideoSection() {
   return (
     <section id="video" className="section section--alt">
       <div className="container">
-        <div className="section__head">
-          <h2 className="h2">Video</h2>
-          <p className="p">Our live clip</p>
-        </div>
+        <SectionIntro
+          eyebrow="Watch"
+          title="Live performance footage that fits naturally into the page."
+          description="The video module now scales more gracefully on smaller screens and keeps the call to action close to the embed."
+        />
 
-        <article className="panel">
-          <h3 className="h3">Turquoise Steel Live</h3>
+        <article className="panel panel--wide">
+          <div className="panel__split">
+            <div>
+              <p className="panel__eyebrow">Live clip</p>
+              <h3 className="h3">Turquoise Steel Live</h3>
+              <p className="p p--muted">
+                A direct window into the stage energy behind the recordings and booking pitch.
+              </p>
+            </div>
+
+            <div className="panel__actions panel__actions--compact">
+              <a
+                className="btn btn--secondary"
+                href="https://www.youtube.com/watch?v=DOsFYZJGd3w"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Watch on YouTube
+              </a>
+            </div>
+          </div>
 
           <div className="embed embed--16x9">
             <iframe
-              width="560"
-              height="315"
               src="https://www.youtube.com/embed/DOsFYZJGd3w"
               title="YouTube video player"
               frameBorder="0"
@@ -232,17 +307,6 @@ function VideoSection() {
               loading="lazy"
               allowFullScreen
             ></iframe>
-          </div>
-
-          <div className="panel__actions">
-            <a
-              className="btn btn--secondary"
-              href="https://www.youtube.com/watch?v=DOsFYZJGd3w"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Watch on YouTube
-            </a>
           </div>
         </article>
       </div>
@@ -254,19 +318,25 @@ function ShowsSection() {
   return (
     <section id="shows" className="section">
       <div className="container">
-        <div className="section__head">
-          <h2 className="h2">Upcoming Shows</h2>
-          <p className="p"></p>
-        </div>
+        <SectionIntro
+          eyebrow="Shows"
+          title="Upcoming dates stay easy to scan on both phones and larger screens."
+          description="Each show row now stacks cleanly on small devices so the details and ticket button never fight for width."
+        />
 
         <div className="panel">
           <ul className="shows" aria-label="Show dates">
             {SHOWS.map((show) => (
               <li key={show.date} className="show">
-                <div className="show__left">
+                <div className="show__dateBlock">
                   <span className="show__date">{show.date}</span>
+                  <span className="show__location">{show.location}</span>
+                </div>
+
+                <div className="show__details">
                   <span className="show__venue">{show.venue}</span>
                 </div>
+
                 <div className="show__right">
                   <a className="btn btn--small btn--ghost" href={show.tickets}>
                     Tickets
@@ -281,7 +351,7 @@ function ShowsSection() {
               className="btn btn--secondary"
               href="mailto:turquoisesteel505@gmail.com?subject=Upcoming%20Shows%20Request"
             >
-              See all
+              Request full calendar
             </a>
           </div>
         </div>
@@ -294,27 +364,43 @@ function BookingSection() {
   return (
     <section id="booking" className="section section--alt">
       <div className="container">
-        <div className="section__head">
-          <h2 className="h2">Booking</h2>
-          <p className="p">Quick facts for promoters.</p>
-        </div>
+        <SectionIntro
+          eyebrow="Booking"
+          title="Promoter-friendly information without overwhelming the page."
+          description="The booking area is now more polished, more readable on phones, and clearer about what makes the act easy to work with."
+        />
 
-        <div className="grid grid--2">
+        <div className="grid grid--booking">
           <article className="panel">
-            <h3 className="h3">At a glance</h3>
-            <ul className="bullets">
-              <li>Based in Albuquerque, NM • Travel radius: TBD</li>
-              <li>Genre tags: Blues / Rock / Alt</li>
-              <li>Typical set length: 45–60 minutes</li>
+            <p className="panel__eyebrow">Why book Turquoise Steel</p>
+            <h3 className="h3">Built for intimate rooms and bigger community stages</h3>
+            <ul className="featureList">
+              {BOOKING_POINTS.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
             </ul>
           </article>
 
-          <article className="panel panel--accent">
-            <h3 className="h3">Ready to book?</h3>
-            <p className="p p--muted">Availability</p>
+          <article className="panel panel--accent bookingCard">
+            <p className="panel__eyebrow">Quick facts</p>
+            <div className="bookingCard__grid">
+              <div>
+                <span className="bookingCard__label">Travel</span>
+                <strong>Southwest and regional routing</strong>
+              </div>
+              <div>
+                <span className="bookingCard__label">Set length</span>
+                <strong>45 to 90 minutes</strong>
+              </div>
+              <div>
+                <span className="bookingCard__label">Genres</span>
+                <strong>Blues, rock, alt-country textures</strong>
+              </div>
+            </div>
+
             <div className="panel__actions">
               <a className="btn btn--primary" href="#contact">
-                Book us
+                Book the band
               </a>
             </div>
           </article>
@@ -330,8 +416,11 @@ function SubscribeSection() {
       <div className="container">
         <div className="cta">
           <div className="cta__copy">
-            <h2 className="h2">Join the mailing list</h2>
-            <p className="p">Get show announcements + unreleased demos.</p>
+            <p className="eyebrow">Email list</p>
+            <h2 className="h2">Join for show announcements, new releases, and unreleased demos.</h2>
+            <p className="p">
+              The signup module now collapses into a single-column form on smaller screens and keeps the button easy to tap.
+            </p>
           </div>
 
           <form
@@ -373,13 +462,15 @@ function ContactSection() {
   return (
     <section id="contact" className="section">
       <div className="container">
-        <div className="section__head">
-          <h2 className="h2">Contact</h2>
-          <p className="p">Fast contact form + direct email + repeat socials.</p>
-        </div>
+        <SectionIntro
+          eyebrow="Contact"
+          title="A cleaner contact area with a better mobile layout."
+          description="Forms, direct email, and social links now sit inside a more balanced two-column section that collapses neatly for smaller screens."
+        />
 
-        <div className="grid grid--2">
+        <div className="grid grid--contact">
           <article className="panel">
+            <p className="panel__eyebrow">Send a message</p>
             <form
               className="form"
               name="contact"
@@ -415,28 +506,36 @@ function ContactSection() {
             </form>
           </article>
 
-          <aside className="panel">
-            <h3 className="h3">Direct</h3>
+          <aside className="panel panel--tinted contactCard">
+            <p className="panel__eyebrow">Direct contact</p>
+            <h3 className="h3">Keep the conversation simple</h3>
             <p className="p p--muted">
-              Email: <a className="link" href="mailto:turquoisesteel505@gmail.com">turquoisesteel505@gmail.com</a>
+              Email:{" "}
+              <a className="link" href="mailto:turquoisesteel505@gmail.com">
+                turquoisesteel505@gmail.com
+              </a>
             </p>
 
             <div className="divider"></div>
 
-            <h3 className="h3">Social</h3>
-            <ul className="social">
-              {SOCIAL_LINKS.map((social) => (
-                <li key={social.label}>
-                  <a className="link" href={social.href} target="_blank" rel="noopener noreferrer">
-                    {social.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            <div className="divider"></div>
-
-            <p className="p p--muted">Follow our socials</p>
+            <div className="contactCard__stack">
+              <div>
+                <p className="contactCard__label">Best for</p>
+                <p className="p p--muted">Booking requests, event questions, and schedule details.</p>
+              </div>
+              <div>
+                <p className="contactCard__label">Social links</p>
+                <ul className="social">
+                  {SOCIAL_LINKS.map((social) => (
+                    <li key={social.label}>
+                      <a className="link link--arrow" href={social.href} target="_blank" rel="noopener noreferrer">
+                        {social.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </aside>
         </div>
       </div>
@@ -450,9 +549,11 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="container footer__inner">
-        <p>
-          © <span>{year}</span> Turquoise Steel
-        </p>
+        <div>
+          <p className="footer__title">Turquoise Steel</p>
+          <p className="footer__copy">© {year} Turquoise Steel. Live blues and rock from Navajo country.</p>
+        </div>
+
         <div className="footer__links">
           <a href="#music">Music</a>
           <a href="#shows">Shows</a>
@@ -502,7 +603,7 @@ function App() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.overflow = isMenuOpen && window.innerWidth <= 860 ? "hidden" : "";
+    root.style.overflow = isMenuOpen && window.innerWidth <= 900 ? "hidden" : "";
 
     return () => {
       root.style.overflow = "";
@@ -511,7 +612,7 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 860) {
+      if (window.innerWidth > 900) {
         setIsMenuOpen(false);
       }
     };
