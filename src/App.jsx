@@ -460,8 +460,8 @@ function ContactSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Contact"
-          title="A cleaner contact area with a better mobile layout."
-          description="Forms, direct email, and social links now sit inside a more balanced two-column section that collapses neatly for smaller screens."
+          title="Details for contacting the band"
+          description="We're available for booking inquiries, questions about the music, or just to say hi. Reach out through the form below or email us directly."
         />
 
         <div className="grid grid--contact">
