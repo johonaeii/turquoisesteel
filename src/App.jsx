@@ -136,7 +136,7 @@ function HeroSection() {
 
             <div className="chip" role="note">
               <span className="chip__dot" aria-hidden="true"></span>
-              <span>New music, live video, and booking info in one streamlined home page.</span>
+              <span>New music, videos, and booking info </span>
             </div>
           </div>
 
@@ -155,8 +155,7 @@ function HeroSection() {
               <p className="hero__spotlightLabel">Featured track</p>
               <h2 className="hero__spotlightTitle">Hitchhiking Blues</h2>
               <p className="p p--muted">
-                Start with the latest release, then move into the live video and show calendar.
-              </p>
+                Latest release              </p>
               <a
                 className="link link--arrow"
                 href="https://open.spotify.com/track/6yDxt1kXjggMO4TFYxQfVi"
@@ -179,15 +178,15 @@ function MusicSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Listen"
-          title="A cleaner music section with quick paths into the catalog."
-          description="Two featured Spotify embeds stay readable on mobile while giving visitors an easy way to play, save, or follow."
+          title="Music that lasts longer than dirt"
+          description="Follow our Spotify profile for the latest releases, and keep an eye on this section for featured tracks and albums that deserve a deeper listen."
         />
 
         <div className="grid grid--2">
           <article className="panel">
             <p className="panel__eyebrow">Top track</p>
             <h3 className="h3">Navajo Outlaw</h3>
-            <p className="p p--muted">A fast entry point for first-time listeners landing on the site.</p>
+            <p className="p p--muted">On the dirt, on the rez, on the road, on the run.</p>
 
             <div className="embed">
               <iframe
@@ -225,7 +224,7 @@ function MusicSection() {
           <article className="panel panel--tinted">
             <p className="panel__eyebrow">Latest release</p>
             <h3 className="h3">Hitchhiking Blues</h3>
-            <p className="p p--muted">Featured release card with a stronger visual anchor and simpler actions.</p>
+            <p className="p p--muted">Not knowing where you're going, but knowing you'll meet dirt and rez cars.</p>
 
             <div className="embed">
               <iframe
@@ -271,8 +270,8 @@ function VideoSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Watch"
-          title="Live performance footage that fits naturally into the page."
-          description="The video module now scales more gracefully on smaller screens and keeps the call to action close to the embed."
+          title="Watch our latest video"
+          description="Live performance footage from the road."
         />
 
         <article className="panel panel--wide">
@@ -281,7 +280,7 @@ function VideoSection() {
               <p className="panel__eyebrow">Live clip</p>
               <h3 className="h3">Turquoise Steel Live</h3>
               <p className="p p--muted">
-                A direct window into the stage energy behind the recordings and booking pitch.
+                See us live
               </p>
             </div>
 
@@ -320,8 +319,8 @@ function ShowsSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Shows"
-          title="Upcoming dates stay easy to scan on both phones and larger screens."
-          description="Each show row now stacks cleanly on small devices so the details and ticket button never fight for width."
+          title="Upcoming dates and booking info"
+          description="Key details like date, location, and ticket links are front and center, with a clear path to the full calendar."
         />
 
         <div className="panel">
@@ -366,8 +365,8 @@ function BookingSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Booking"
-          title="Promoter-friendly information without overwhelming the page."
-          description="The booking area is now more polished, more readable on phones, and clearer about what makes the act easy to work with."
+          title="Turquoise Steel is available for bookings in 2026."
+          description="Electric blues and desert rock built for festival stages, intimate rooms, and late-night sets."
         />
 
         <div className="grid grid--booking">
@@ -418,9 +417,6 @@ function SubscribeSection() {
           <div className="cta__copy">
             <p className="eyebrow">Email list</p>
             <h2 className="h2">Join for show announcements, new releases, and unreleased demos.</h2>
-            <p className="p">
-              The signup module now collapses into a single-column form on smaller screens and keeps the button easy to tap.
-            </p>
           </div>
 
           <form
