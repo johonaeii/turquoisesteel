@@ -1,14 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
   <title id="title">Turquoise Steel favicon</title>
-  <desc id="desc">Turquoise Steel initials on a dark gradient background.</desc>
+  <desc id="desc">Crossed hammers inside a circle on a dark background.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0b1a2a" />
-      <stop offset="55%" stop-color="#0ea5a5" />
-      <stop offset="100%" stop-color="#d946ef" />
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0e2c8" />
+      <stop offset="100%" stop-color="#7ab8b2" />
     </linearGradient>
   </defs>
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" />
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1" />
-  <text x="32" y="39" text-anchor="middle" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700" fill="#f8fafc">TS</text>
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="#110f0d" />
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="none" stroke="#6d5843" stroke-width="1" />
+  <circle cx="32" cy="28" r="17" fill="none" stroke="url(#ring)" stroke-width="2.5" />
+  <path d="M23 40 L39 24" fill="none" stroke="#f0e2c8" stroke-width="4" stroke-linecap="round" />
+  <path d="M23 20 H32" fill="none" stroke="#f0e2c8" stroke-width="4" stroke-linecap="round" />
+  <path d="M26 24 V16" fill="none" stroke="#f0e2c8" stroke-width="3" stroke-linecap="round" />
+  <path d="M25 24 L40 39" fill="none" stroke="#7ab8b2" stroke-width="4" stroke-linecap="round" />
+  <path d="M32 20 H41" fill="none" stroke="#7ab8b2" stroke-width="4" stroke-linecap="round" />
+  <path d="M38 24 V16" fill="none" stroke="#7ab8b2" stroke-width="3" stroke-linecap="round" />
+  <circle cx="22" cy="49" r="2.2" fill="#dcc19a" />
+  <circle cx="32" cy="51" r="2.2" fill="#f0e2c8" />
+  <circle cx="42" cy="49" r="2.2" fill="#dcc19a" />
 </svg>

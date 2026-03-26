@@ -7,16 +7,18 @@
     <link rel="icon" type="image/svg+xml" href="/images/favicon-64.svg" />
     <style>
       :root {
-        --bg: #07090f;
-        --panel: rgba(10, 12, 20, 0.72);
-        --stroke: rgba(255, 255, 255, 0.1);
-        --text: rgba(255, 255, 255, 0.92);
-        --muted: rgba(255, 255, 255, 0.74);
-        --turquoise: #2dd4bf;
-        --magenta: #d946ef;
+        --bg: #110f0d;
+        --panel: rgba(18, 15, 12, 0.86);
+        --stroke: rgba(244, 237, 227, 0.12);
+        --text: #f4ede3;
+        --muted: rgba(244, 237, 227, 0.74);
+        --sand: #dcc19a;
+        --turquoise: #7ab8b2;
       }
 
-      * {
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
       }
 
@@ -27,22 +29,42 @@
         place-items: center;
         padding: 24px;
         color: var(--text);
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(900px 560px at 18% 10%, rgba(122, 184, 178, 0.16), transparent 60%),
+          radial-gradient(820px 520px at 86% 20%, rgba(180, 134, 93, 0.18), transparent 58%),
+          linear-gradient(180deg, rgba(8, 7, 5, 0.64), rgba(8, 7, 5, 0.96)),
+          url("/images/background.jpg");
         background-color: var(--bg);
-        background-image:
-          radial-gradient(1000px 600px at 20% 10%, rgba(59, 130, 246, 0.18), transparent 60%),
-          radial-gradient(900px 500px at 80% 30%, rgba(217, 70, 239, 0.14), transparent 60%),
-          radial-gradient(900px 500px at 50% 80%, rgba(16, 185, 129, 0.12), transparent 60%);
+        background-position: center;
+        background-size: cover;
       }
 
       main {
-        width: min(100%, 720px);
-        padding: clamp(24px, 5vw, 40px);
-        border-radius: 24px;
+        width: min(100%, 960px);
+      }
+
+      .card {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+        gap: 24px;
+        padding: clamp(22px, 4vw, 40px);
+        border-radius: 32px;
         background: var(--panel);
         border: 1px solid var(--stroke);
-        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(12px);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(16px);
+      }
+
+      .copyWrap {
+        display: grid;
+        align-content: center;
+      }
+
+      .art {
+        display: grid;
+        gap: 16px;
+        align-content: start;
       }
 
       p {
@@ -56,13 +78,15 @@
         letter-spacing: 0.12em;
         font-size: 12px;
         font-weight: 800;
-        color: var(--muted);
+        color: var(--sand);
       }
 
       h1 {
         margin: 0 0 12px;
-        font-size: clamp(32px, 6vw, 54px);
-        line-height: 1.02;
+        font-family: "Palatino Linotype", Georgia, serif;
+        font-size: clamp(32px, 6vw, 58px);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
       }
 
       .copy {
@@ -77,20 +101,46 @@
         margin-top: 24px;
       }
 
+      .crest,
+      .poster {
+        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .crest {
+        width: 108px;
+        height: 108px;
+        display: grid;
+        place-items: center;
+        padding: 12px;
+        border-radius: 28px;
+      }
+
+      .poster {
+        overflow: hidden;
+        border-radius: 24px;
+      }
+
+      .poster img {
+        width: 100%;
+        display: block;
+      }
+
       a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 12px 16px;
-        border-radius: 14px;
+        min-height: 48px;
+        padding: 12px 18px;
+        border-radius: 999px;
         font-weight: 800;
         text-decoration: none;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--stroke);
       }
 
       .primary {
-        color: #001012;
-        background: linear-gradient(135deg, var(--turquoise), var(--magenta));
+        color: #15100b;
+        background: linear-gradient(135deg, var(--sand), var(--turquoise));
       }
 
       .secondary {
@@ -98,7 +148,18 @@
         background: rgba(255, 255, 255, 0.06);
       }
 
-      @media (max-width: 520px) {
+      @media (max-width: 760px) {
+        .card {
+          grid-template-columns: 1fr;
+        }
+
+        .art {
+          grid-template-columns: auto minmax(0, 1fr);
+          align-items: start;
+        }
+      }
+
+      @media (max-width: 560px) {
         .actions {
           display: grid;
         }
@@ -106,20 +167,42 @@
         a {
           width: 100%;
         }
+
+        .art {
+          grid-template-columns: 1fr;
+        }
+
+        .crest {
+          width: 92px;
+          height: 92px;
+        }
       }
     </style>
   </head>
   <body>
     <main>
-      <p class="eyebrow">Message received</p>
-      <h1>Thanks for reaching out.</h1>
-      <p class="copy">
-        Your submission was sent to Turquoise Steel's Netlify form inbox. If email notifications are enabled in
-        Netlify, a copy will also be sent to <strong>turquoisesteel505@gmail.com</strong>.
-      </p>
-      <div class="actions">
-        <a class="primary" href="/">Back to site</a>
-        <a class="secondary" href="mailto:turquoisesteel505@gmail.com">Email directly</a>
+      <div class="card">
+        <div class="copyWrap">
+          <p class="eyebrow">Message received</p>
+          <h1>Thanks for reaching out.</h1>
+          <p class="copy">
+            Your submission was sent to Turquoise Steel's Netlify form inbox. If email notifications are enabled in
+            Netlify, a copy will also be sent to <strong>turquoisesteel505@gmail.com</strong>.
+          </p>
+          <div class="actions">
+            <a class="primary" href="/">Back to site</a>
+            <a class="secondary" href="mailto:turquoisesteel505@gmail.com">Email directly</a>
+          </div>
+        </div>
+
+        <aside class="art" aria-hidden="true">
+          <div class="crest">
+            <img src="/images/band-logo.png" alt="" width="80" height="80" />
+          </div>
+          <div class="poster">
+            <img src="/images/homeland-poster.png" alt="" />
+          </div>
+        </aside>
       </div>
     </main>
   </body>

@@ -5,9 +5,8 @@ const NAV_LINKS = [
   { href: "#video", label: "Video", className: "nav__link" },
   { href: "#shows", label: "Shows", className: "nav__link" },
   { href: "#booking", label: "Booking", className: "nav__link" },
-  { href: "#subscribe", label: "Email", className: "nav__link" },
   { href: "#contact", label: "Contact", className: "nav__link" },
-  { href: "#booking", label: "Book Us", className: "nav__cta" }
+  { href: "#booking", label: "Book a Show", className: "nav__cta" }
 ];
 
 const SHOWS = [
@@ -37,11 +36,44 @@ const SOCIAL_LINKS = [
   { href: "https://open.spotify.com/search/Turquoise%20Steel", label: "Spotify" }
 ];
 
-const HERO_FACTS = [
-  { label: "Based in", value: "Albuquerque, NM" },
+const HERO_PILLS = [
+  { label: "Home base", value: "Albuquerque, NM" },
   { label: "Sound", value: "Blues, rock, soul" },
-  { label: "Booking", value: "45 to 90 minute sets" }
+  { label: "Live sets", value: "45 to 90 minutes" }
 ];
+
+const HERO_FACTS = [
+  { label: "Current release", value: "Homeland" },
+  { label: "Release date", value: "February 20, 2026" },
+  { label: "Routing", value: "Southwest + regional" }
+];
+
+const FEATURED_TRACKS = [
+  {
+    eyebrow: "Top track",
+    title: "Navajo Outlaw",
+    description: "On the dirt, on the rez, on the road, on the run.",
+    embedTitle: "Spotify embed for Navajo Outlaw",
+    embedSrc: "https://open.spotify.com/embed/track/7Eks90sec4CaJCiD5kK1iG?utm_source=generator",
+    primaryHref: "https://open.spotify.com/track/7Eks90sec4CaJCiD5kK1iG",
+    primaryLabel: "Play on Spotify",
+    secondaryHref: "https://open.spotify.com/search/Turquoise%20Steel",
+    secondaryLabel: "Browse artist page"
+  },
+  {
+    eyebrow: "Latest single",
+    title: "Hitchhiking Blues",
+    description: "Not knowing where you're going, but knowing you'll meet dirt and rez cars.",
+    embedTitle: "Spotify embed for Hitchhiking Blues",
+    embedSrc: "https://open.spotify.com/embed/track/6yDxt1kXjggMO4TFYxQfVi?utm_source=generator",
+    primaryHref: "https://open.spotify.com/search/Turquoise%20Steel",
+    primaryLabel: "Follow on Spotify",
+    secondaryHref: "https://open.spotify.com/track/6yDxt1kXjggMO4TFYxQfVi",
+    secondaryLabel: "Save this track"
+  }
+];
+
+const RELEASE_TAGS = ["Released February 20, 2026", "Desert-blues energy", "Turquoise grit"];
 
 const BOOKING_POINTS = [
   "Family-led live act rooted in Navajo country storytelling and blues tradition.",
@@ -64,11 +96,11 @@ function SiteNav({ isMenuOpen, isNavHidden, onToggleMenu, onMenuClick }) {
     <header className={`nav${isNavHidden ? " nav--hidden" : ""}`} role="banner">
       <div className="nav__inner">
         <a className="brand" href="#top" aria-label="Turquoise Steel Home">
-          <span className="brand__icon" aria-hidden="true">
-            <img src="/images/favicon-64.svg" width="40" height="40" alt="" />
+          <span className="brand__mark" aria-hidden="true">
+            <img src="/images/band-logo.png" width="52" height="52" alt="" />
           </span>
           <span className="brand__text">
-            <span className="brand__eyebrow">Navajo blues band</span>
+            <span className="brand__eyebrow">Desert blues from Navajo country</span>
             <span className="brand__name">Turquoise Steel</span>
           </span>
         </a>
@@ -104,25 +136,27 @@ function SiteNav({ isMenuOpen, isNavHidden, onToggleMenu, onMenuClick }) {
 function HeroSection() {
   return (
     <section id="top" className="hero">
-      <div className="hero__bg" aria-hidden="true">
+      <div className="hero__backdrop" aria-hidden="true">
         <img
-          src="/images/splash.jpg"
+          src="/images/background.jpg"
           alt=""
-          className="hero__bgImage"
+          className="hero__backdropImage"
           loading="eager"
           decoding="async"
           fetchPriority="high"
         />
       </div>
-      <div className="hero__overlay" aria-hidden="true"></div>
+      <div className="hero__scrim" aria-hidden="true"></div>
+      <div className="hero__mesh" aria-hidden="true"></div>
 
       <div className="container hero__content">
         <div className="hero__layout">
-          <div className="hero__main">
-            <p className="kicker">Navajo Family Blues Band</p>
+          <div className="hero__copy">
+            <p className="kicker">Desert blues from Navajo country</p>
             <h1 className="title">Turquoise Steel</h1>
             <p className="subtitle">
-              Electric blues and desert rock built for festival stages, intimate rooms, and late-night sets.
+              Electric blues and desert rock with turquoise grit, road dust, and enough soul for late-night rooms,
+              festival stages, and open-sky sets.
             </p>
 
             <div className="hero__actions">
@@ -134,38 +168,73 @@ function HeroSection() {
               </a>
             </div>
 
-            <div className="chip" role="note">
-              <span className="chip__dot" aria-hidden="true"></span>
-              <span>New music, videos, and booking info </span>
+            <ul className="hero__pills" aria-label="Band highlights">
+              {HERO_PILLS.map((pill) => (
+                <li key={pill.label} className="hero__pill">
+                  <span className="hero__pillLabel">{pill.label}</span>
+                  <strong>{pill.value}</strong>
+                </li>
+              ))}
+            </ul>
+
+            <div className="hero__release" role="note">
+              <p className="hero__releaseLabel">Current release</p>
+              <div className="hero__releaseRow">
+                <div>
+                  <p className="hero__releaseTitle">Homeland</p>
+                  <p className="p p--muted">Released February 20, 2026.</p>
+                </div>
+                <a
+                  className="link link--arrow"
+                  href="https://open.spotify.com/search/Turquoise%20Steel"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open artist page
+                </a>
+              </div>
             </div>
           </div>
 
-          <aside className="hero__panel" aria-label="Band overview">
-            <p className="hero__panelLabel">Current snapshot</p>
-            <div className="hero__facts">
-              {HERO_FACTS.map((fact) => (
-                <div key={fact.label} className="statCard">
-                  <span className="statCard__label">{fact.label}</span>
-                  <strong className="statCard__value">{fact.value}</strong>
-                </div>
-              ))}
-            </div>
+          <div className="hero__stack">
+            <figure className="posterCard">
+              <div className="posterCard__frame">
+                <img
+                  src="/images/homeland-poster.png"
+                  alt="Turquoise Steel Homeland poster featuring a desert landscape, silver typography, and turquoise stone details."
+                  className="posterCard__image"
+                />
+              </div>
+              <figcaption className="posterCard__meta">
+                <p className="panel__eyebrow">Poster art direction</p>
+                <h2 className="h3">Worn silver, turquoise stone, open desert.</h2>
+                <p className="p p--muted">
+                  We used the new poster as the visual anchor for a cleaner, more cinematic site refresh.
+                </p>
+              </figcaption>
+            </figure>
 
-            <div className="hero__spotlight">
-              <p className="hero__spotlightLabel">Featured track</p>
-              <h2 className="hero__spotlightTitle">Hitchhiking Blues</h2>
-              <p className="p p--muted">
-                Latest release              </p>
-              <a
-                className="link link--arrow"
-                href="https://open.spotify.com/track/6yDxt1kXjggMO4TFYxQfVi"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open on Spotify
-              </a>
-            </div>
-          </aside>
+            <article className="crestCard">
+              <div className="crestCard__mark">
+                <img
+                  src="/images/band-logo.png"
+                  alt="Turquoise Steel emblem with crossed hammers and feathers."
+                  className="crestCard__logo"
+                />
+              </div>
+              <div className="crestCard__body">
+                <p className="panel__eyebrow">Road-ready snapshot</p>
+                <div className="hero__facts">
+                  {HERO_FACTS.map((fact) => (
+                    <div key={fact.label} className="statCard">
+                      <span className="statCard__label">{fact.label}</span>
+                      <strong className="statCard__value">{fact.value}</strong>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -178,86 +247,75 @@ function MusicSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Listen"
-          title="Music that lasts longer than dirt"
-          description="Follow our Spotify profile for the latest releases, and keep an eye on this section for featured tracks and albums that deserve a deeper listen."
+          title="New release energy, old-road soul"
+          description="The refreshed site pulls from the Homeland poster and the band's logo, then pairs that visual world with cleaner listening paths on desktop and mobile."
         />
 
-        <div className="grid grid--2">
-          <article className="panel">
-            <p className="panel__eyebrow">Top track</p>
-            <h3 className="h3">Navajo Outlaw</h3>
-            <p className="p p--muted">On the dirt, on the rez, on the road, on the run.</p>
+        <article className="panel panel--feature musicFeature">
+          <div className="musicFeature__art">
+            <img src="/images/homeland-poster.png" alt="Homeland poster art for Turquoise Steel." />
+          </div>
 
-            <div className="embed">
-              <iframe
-                title="Spotify embed for Navajo Outlaw"
-                style={{ borderRadius: "18px" }}
-                src="https://open.spotify.com/embed/track/7Eks90sec4CaJCiD5kK1iG?utm_source=generator"
-                width="100%"
-                height="352"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-              ></iframe>
+          <div className="musicFeature__body">
+            <p className="panel__eyebrow">Homeland era</p>
+            <h3 className="h3">A tighter, more cinematic visual world for the band.</h3>
+            <p className="p p--muted">
+              Weathered metal typography, turquoise stone accents, and wide-open Southwest tones now drive the site,
+              while keeping the listening experience faster and clearer on small screens.
+            </p>
+
+            <div className="tagRow">
+              {RELEASE_TAGS.map((tag) => (
+                <span key={tag} className="tag">
+                  {tag}
+                </span>
+              ))}
             </div>
 
             <div className="panel__actions">
               <a
-                className="btn btn--secondary"
-                href="https://open.spotify.com/track/7Eks90sec4CaJCiD5kK1iG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Play on Spotify
-              </a>
-              <a
-                className="btn btn--ghost"
+                className="btn btn--primary"
                 href="https://open.spotify.com/search/Turquoise%20Steel"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Browse artist page
+                Stream the catalog
+              </a>
+              <a className="btn btn--ghost" href="#subscribe">
+                Get release updates
               </a>
             </div>
-          </article>
+          </div>
+        </article>
 
-          <article className="panel panel--tinted">
-            <p className="panel__eyebrow">Latest release</p>
-            <h3 className="h3">Hitchhiking Blues</h3>
-            <p className="p p--muted">Not knowing where you're going, but knowing you'll meet dirt and rez cars.</p>
+        <div className="grid grid--2 trackGrid">
+          {FEATURED_TRACKS.map((track, index) => (
+            <article key={track.title} className={`panel${index === 1 ? " panel--tinted" : ""}`}>
+              <p className="panel__eyebrow">{track.eyebrow}</p>
+              <h3 className="h3">{track.title}</h3>
+              <p className="p p--muted">{track.description}</p>
 
-            <div className="embed">
-              <iframe
-                title="Spotify embed for Hitchhiking Blues"
-                style={{ borderRadius: "18px" }}
-                src="https://open.spotify.com/embed/track/6yDxt1kXjggMO4TFYxQfVi?utm_source=generator"
-                width="100%"
-                height="352"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-              ></iframe>
-            </div>
+              <div className="embed">
+                <iframe
+                  className="embed__frame embed__frame--spotify"
+                  title={track.embedTitle}
+                  src={track.embedSrc}
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                ></iframe>
+              </div>
 
-            <div className="panel__actions">
-              <a
-                className="btn btn--secondary"
-                href="https://open.spotify.com/search/Turquoise%20Steel"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Follow on Spotify
-              </a>
-              <a
-                className="btn btn--ghost"
-                href="https://open.spotify.com/track/6yDxt1kXjggMO4TFYxQfVi"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Save this track
-              </a>
-            </div>
-          </article>
+              <div className="panel__actions">
+                <a className="btn btn--secondary" href={track.primaryHref} target="_blank" rel="noopener noreferrer">
+                  {track.primaryLabel}
+                </a>
+                <a className="btn btn--ghost" href={track.secondaryHref} target="_blank" rel="noopener noreferrer">
+                  {track.secondaryLabel}
+                </a>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -267,24 +325,22 @@ function MusicSection() {
 function VideoSection() {
   return (
     <section id="video" className="section section--alt">
-      <div className="container">
-        <SectionIntro
-          eyebrow="Watch"
-          title="Watch our latest video"
-          description="Live performance footage from the road."
-        />
+      <div className="container videoShell">
+        <div className="videoShell__copy">
+          <SectionIntro
+            eyebrow="Watch"
+            title="See the grit, volume, and room feel live"
+            description="Performance footage gives fans and bookers a quick read on the band's live energy without making mobile visitors fight through the layout."
+          />
 
-        <article className="panel panel--wide">
-          <div className="panel__split">
-            <div>
-              <p className="panel__eyebrow">Live clip</p>
-              <h3 className="h3">Turquoise Steel Live</h3>
-              <p className="p p--muted">
-                See us live
-              </p>
-            </div>
+          <div className="panel panel--soft">
+            <p className="panel__eyebrow">Latest clip</p>
+            <h3 className="h3">Turquoise Steel Live</h3>
+            <p className="p p--muted">
+              A straightforward live look at the band, framed in a cleaner card that scales down better on phones.
+            </p>
 
-            <div className="panel__actions panel__actions--compact">
+            <div className="panel__actions">
               <a
                 className="btn btn--secondary"
                 href="https://www.youtube.com/watch?v=DOsFYZJGd3w"
@@ -295,11 +351,14 @@ function VideoSection() {
               </a>
             </div>
           </div>
+        </div>
 
-          <div className="embed embed--16x9">
+        <article className="panel panel--wide panel--video">
+          <div className="embed embed--video">
             <iframe
+              className="embed__frame"
               src="https://www.youtube.com/embed/DOsFYZJGd3w"
-              title="YouTube video player"
+              title="Turquoise Steel live video"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -319,40 +378,59 @@ function ShowsSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Shows"
-          title="Upcoming dates and booking info"
-          description="Key details like date, location, and ticket links are front and center, with a clear path to the full calendar."
+          title="Upcoming dates across the Southwest"
+          description="Dates stay easy to scan on phones, with ticket and contact actions close at hand instead of drifting off to the edge of the layout."
         />
 
-        <div className="panel">
-          <ul className="shows" aria-label="Show dates">
-            {SHOWS.map((show) => (
-              <li key={show.date} className="show">
-                <div className="show__dateBlock">
-                  <span className="show__date">{show.date}</span>
-                  <span className="show__location">{show.location}</span>
-                </div>
+        <div className="grid grid--shows">
+          <div className="panel">
+            <ul className="shows" aria-label="Show dates">
+              {SHOWS.map((show) => (
+                <li key={`${show.date}-${show.venue}`} className="show">
+                  <div className="show__dateBlock">
+                    <span className="show__date">{show.date}</span>
+                    <span className="show__location">{show.location}</span>
+                  </div>
 
-                <div className="show__details">
-                  <span className="show__venue">{show.venue}</span>
-                </div>
+                  <div className="show__details">
+                    <span className="show__venue">{show.venue}</span>
+                  </div>
 
-                <div className="show__right">
-                  <a className="btn btn--small btn--ghost" href={show.tickets}>
-                    Tickets
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className="panel__actions panel__actions--right">
-            <a
-              className="btn btn--secondary"
-              href="mailto:turquoisesteel505@gmail.com?subject=Upcoming%20Shows%20Request"
-            >
-              Request full calendar
-            </a>
+                  <div className="show__right">
+                    <a className="btn btn--small btn--ghost" href={show.tickets}>
+                      Tickets
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          <aside className="panel panel--accent showsAside">
+            <p className="panel__eyebrow">Need the full calendar?</p>
+            <h3 className="h3">Ask about routing, hold dates, or private events.</h3>
+            <p className="p p--muted">
+              We keep booking conversations direct and low-friction, whether you need a festival slot or a smaller room.
+            </p>
+
+            <div className="tagRow">
+              <span className="tag">Festivals</span>
+              <span className="tag">Community events</span>
+              <span className="tag">Private bookings</span>
+            </div>
+
+            <div className="panel__actions">
+              <a
+                className="btn btn--primary"
+                href="mailto:turquoisesteel505@gmail.com?subject=Upcoming%20Shows%20Request"
+              >
+                Request full calendar
+              </a>
+              <a className="btn btn--ghost" href="#contact">
+                Send a message
+              </a>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -365,14 +443,14 @@ function BookingSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Booking"
-          title="Turquoise Steel is available for bookings in 2026."
-          description="Electric blues and desert rock built for festival stages, intimate rooms, and late-night sets."
+          title="Built for festivals, listening rooms, and community stages"
+          description="The updated layout keeps the practical stuff easy to find while still feeling like Turquoise Steel instead of a generic band template."
         />
 
         <div className="grid grid--booking">
           <article className="panel">
-            <p className="panel__eyebrow">Why book Turquoise Steel</p>
-            <h3 className="h3">Built for intimate rooms and bigger community stages</h3>
+            <p className="panel__eyebrow">Why promoters reach out</p>
+            <h3 className="h3">A live set grounded in family chemistry and road-tested blues.</h3>
             <ul className="featureList">
               {BOOKING_POINTS.map((point) => (
                 <li key={point}>{point}</li>
@@ -380,7 +458,7 @@ function BookingSection() {
             </ul>
           </article>
 
-          <article className="panel panel--accent bookingCard">
+          <article className="panel panel--bronze bookingCard">
             <p className="panel__eyebrow">Quick facts</p>
             <div className="bookingCard__grid">
               <div>
@@ -392,14 +470,17 @@ function BookingSection() {
                 <strong>45 to 90 minutes</strong>
               </div>
               <div>
-                <span className="bookingCard__label">Genres</span>
-                <strong>Blues, rock, alt-country textures</strong>
+                <span className="bookingCard__label">Best fit</span>
+                <strong>Festivals, listening rooms, community events</strong>
               </div>
             </div>
 
             <div className="panel__actions">
               <a className="btn btn--primary" href="#contact">
                 Book the band
+              </a>
+              <a className="btn btn--ghost" href="mailto:turquoisesteel505@gmail.com">
+                Email directly
               </a>
             </div>
           </article>
@@ -415,8 +496,15 @@ function SubscribeSection() {
       <div className="container">
         <div className="cta">
           <div className="cta__copy">
-            <p className="eyebrow">Email list</p>
-            <h2 className="h2">Join for show announcements, new releases, and unreleased demos.</h2>
+            <div className="cta__crest" aria-hidden="true">
+              <img src="/images/band-logo.png" alt="" width="88" height="88" />
+            </div>
+
+            <div>
+              <p className="eyebrow">Stay on the trail</p>
+              <h2 className="h2">Join for show drops, release news, and the next round of videos.</h2>
+              <p className="p p--muted">Low-noise updates straight from the band.</p>
+            </div>
           </div>
 
           <form
@@ -460,8 +548,8 @@ function ContactSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Contact"
-          title="Details for contacting the band"
-          description="We're available for booking inquiries, questions about the music, or just to say hi. Reach out through the form below or email us directly."
+          title="Reach Turquoise Steel directly"
+          description="Booking requests, collaboration ideas, and music questions all come through here, with a layout that stays readable and tappable on smaller screens."
         />
 
         <div className="grid grid--contact">
@@ -504,7 +592,7 @@ function ContactSection() {
 
           <aside className="panel panel--tinted contactCard">
             <p className="panel__eyebrow">Direct contact</p>
-            <h3 className="h3">Keep the conversation simple</h3>
+            <h3 className="h3">Keep it simple.</h3>
             <p className="p p--muted">
               Email:{" "}
               <a className="link" href="mailto:turquoisesteel505@gmail.com">
@@ -517,10 +605,10 @@ function ContactSection() {
             <div className="contactCard__stack">
               <div>
                 <p className="contactCard__label">Best for</p>
-                <p className="p p--muted">Booking requests, event questions, and schedule details.</p>
+                <p className="p p--muted">Booking holds, event logistics, and questions about the music.</p>
               </div>
               <div>
-                <p className="contactCard__label">Social links</p>
+                <p className="contactCard__label">Follow along</p>
                 <ul className="social">
                   {SOCIAL_LINKS.map((social) => (
                     <li key={social.label}>
@@ -547,7 +635,7 @@ function Footer() {
       <div className="container footer__inner">
         <div>
           <p className="footer__title">Turquoise Steel</p>
-          <p className="footer__copy">© {year} Turquoise Steel. Live blues and rock from Navajo country.</p>
+          <p className="footer__copy">Copyright {year} Turquoise Steel. Blues and rock from Navajo country.</p>
         </div>
 
         <div className="footer__links">
