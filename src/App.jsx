@@ -15,9 +15,31 @@ const SOCIAL_LINKS = [
   { href: "https://open.spotify.com/search/Turquoise%20Steel", label: "Spotify" }
 ];
 
+const SHOWS = [
+  {
+    date: "May 5, 2026",
+    venue: "Rhythm Room",
+    location: "Phoenix, AZ",
+    tickets: "https://www.bandsintown.com/e/1038427053-levi-platero-at-rhythm-room",
+    cta: "Tickets"
+  },
+  {
+    date: "May 16-17, 2026",
+    venue: "Crawdaddy Blues Festival 2026",
+    location: "Madrid, NM",
+    tickets: "https://www.bandsintown.com/f/212111",
+    cta: "Tickets"
+  },
+  {
+    date: "May 24, 2026",
+    venue: "Canyon Blues & Jazz Memorial Day Blues Festival 2026",
+    location: "Placitas, NM",
+    tickets: "https://www.bandsintown.com/f/208551",
+    cta: "Tickets"
+  }
+];
+
 const BANDSINTOWN_URL = "https://www.bandsintown.com/a/15599939-turquoise-steel";
-const BANDSINTOWN_ARTIST_ID = "id_15599939";
-const BANDSINTOWN_WIDGET_SRC = "https://widgetv3.bandsintown.com/main.min.js";
 
 const HERO_PILLS = [
   { label: "Home base", value: "Albuquerque, NM" },
@@ -70,42 +92,6 @@ function SectionIntro({ eyebrow, title, description, align = "left" }) {
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
       <h2 className="h2">{title}</h2>
       {description ? <p className="p">{description}</p> : null}
-    </div>
-  );
-}
-
-function BandsintownWidget() {
-  useEffect(() => {
-    const existingScripts = document.querySelectorAll('script[data-bandsintown-widget="true"]');
-    existingScripts.forEach((node) => node.remove());
-
-    const script = document.createElement("script");
-    script.src = BANDSINTOWN_WIDGET_SRC;
-    script.charset = "utf-8";
-    script.async = true;
-    script.dataset.bandsintownWidget = "true";
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-    };
-  }, []);
-
-  return (
-    <div className="bandsintownWidget">
-      <a
-        className="bit-widget-initializer"
-        data-artist-name={BANDSINTOWN_ARTIST_ID}
-        data-background-color="rgba(17,15,13,1)"
-        data-separator-color="rgba(220,193,154,0.18)"
-        data-text-color="rgba(244,237,227,1)"
-        data-font="Helvetica"
-        data-auto-style="true"
-        data-display-logo="false"
-        href={BANDSINTOWN_URL}
-      >
-        Bandsintown tour dates
-      </a>
     </div>
   );
 }
@@ -397,34 +383,51 @@ function ShowsSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Shows"
-          title="Live dates and tickets powered by Bandsintown"
-          description="The site now pulls show listings straight from Turquoise Steel's Bandsintown page, so fans get the latest dates and official ticket links without anyone updating this section by hand."
+          title="Upcoming dates across the Southwest"
+          description="The clean show list is back, but each ticket button now goes straight to the matching Bandsintown event or festival page."
         />
 
         <div className="grid grid--shows">
-          <article className="panel panel--bandsintown">
-            <p className="panel__eyebrow">Bandsintown sync</p>
-            <h3 className="h3">Official show listings with ticket links built in.</h3>
-            <p className="p p--muted">
-              Upcoming dates and ticket buttons now come from the band's official Bandsintown page, which means new
-              shows can appear here automatically as the artist profile is updated.
-            </p>
+          <div className="panel">
+            <ul className="shows" aria-label="Show dates">
+              {SHOWS.map((show) => (
+                <li key={`${show.date}-${show.venue}`} className="show">
+                  <div className="show__dateBlock">
+                    <span className="show__date">{show.date}</span>
+                    <span className="show__location">{show.location}</span>
+                  </div>
 
-            <BandsintownWidget />
-          </article>
+                  <div className="show__details">
+                    <span className="show__venue">{show.venue}</span>
+                  </div>
+
+                  <div className="show__right">
+                    <a
+                      className="btn btn--small btn--ghost"
+                      href={show.tickets}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {show.cta}
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <aside className="panel panel--accent showsAside">
             <p className="panel__eyebrow">Need the full calendar?</p>
             <h3 className="h3">Open the full Bandsintown page or ask about routing directly.</h3>
             <p className="p p--muted">
-              Fans can browse the live schedule and ticket links through Bandsintown, while promoters can still reach
-              out directly for holds, routing, or private event details.
+              Fans can jump straight to the official event pages for tickets, while promoters can still reach out
+              directly for holds, routing, or private event details.
             </p>
 
             <div className="tagRow">
-              <span className="tag">Official ticket links</span>
-              <span className="tag">Auto-updated dates</span>
-              <span className="tag">Bandsintown tracking</span>
+              <span className="tag">Bandsintown tickets</span>
+              <span className="tag">Phoenix added</span>
+              <span className="tag">Direct booking contact</span>
             </div>
 
             <div className="panel__actions">
