@@ -9,32 +9,15 @@ const NAV_LINKS = [
   { href: "#booking", label: "Book a Show", className: "nav__cta" }
 ];
 
-const SHOWS = [
-  {
-    date: "Apr 24, 2026",
-    venue: "Rezz Rock n Blues - Flock of Moons",
-    location: "Albuquerque, NM",
-    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20Apr%2024%2C%202026"
-  },
-  {
-    date: "May 17, 2026",
-    venue: "Crawdaddy Blues Fest",
-    location: "New Mexico",
-    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20May%2017%2C%202026"
-  },
-  {
-    date: "May 24, 2026",
-    venue: "Canyon Blues",
-    location: "New Mexico",
-    tickets: "mailto:turquoisesteel505@gmail.com?subject=Tickets%20Inquiry%20-%20May%2024%2C%202026"
-  }
-];
-
 const SOCIAL_LINKS = [
   { href: "https://www.instagram.com/turquoise_steel", label: "Instagram" },
   { href: "https://www.youtube.com/watch?v=DOsFYZJGd3w", label: "YouTube" },
   { href: "https://open.spotify.com/search/Turquoise%20Steel", label: "Spotify" }
 ];
+
+const BANDSINTOWN_URL = "https://www.bandsintown.com/a/15599939-turquoise-steel";
+const BANDSINTOWN_ARTIST_ID = "id_15599939";
+const BANDSINTOWN_WIDGET_SRC = "https://widgetv3.bandsintown.com/main.min.js";
 
 const HERO_PILLS = [
   { label: "Home base", value: "Albuquerque, NM" },
@@ -87,6 +70,42 @@ function SectionIntro({ eyebrow, title, description, align = "left" }) {
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
       <h2 className="h2">{title}</h2>
       {description ? <p className="p">{description}</p> : null}
+    </div>
+  );
+}
+
+function BandsintownWidget() {
+  useEffect(() => {
+    const existingScripts = document.querySelectorAll('script[data-bandsintown-widget="true"]');
+    existingScripts.forEach((node) => node.remove());
+
+    const script = document.createElement("script");
+    script.src = BANDSINTOWN_WIDGET_SRC;
+    script.charset = "utf-8";
+    script.async = true;
+    script.dataset.bandsintownWidget = "true";
+    document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
+  }, []);
+
+  return (
+    <div className="bandsintownWidget">
+      <a
+        className="bit-widget-initializer"
+        data-artist-name={BANDSINTOWN_ARTIST_ID}
+        data-background-color="rgba(17,15,13,1)"
+        data-separator-color="rgba(220,193,154,0.18)"
+        data-text-color="rgba(244,237,227,1)"
+        data-font="Helvetica"
+        data-auto-style="true"
+        data-display-logo="false"
+        href={BANDSINTOWN_URL}
+      >
+        Bandsintown tour dates
+      </a>
     </div>
   );
 }
@@ -378,56 +397,47 @@ function ShowsSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Shows"
-          title="Upcoming dates across the Southwest"
-          description="Dates stay easy to scan on phones, with ticket and contact actions close at hand instead of drifting off to the edge of the layout."
+          title="Live dates and tickets powered by Bandsintown"
+          description="The site now pulls show listings straight from Turquoise Steel's Bandsintown page, so fans get the latest dates and official ticket links without anyone updating this section by hand."
         />
 
         <div className="grid grid--shows">
-          <div className="panel">
-            <ul className="shows" aria-label="Show dates">
-              {SHOWS.map((show) => (
-                <li key={`${show.date}-${show.venue}`} className="show">
-                  <div className="show__dateBlock">
-                    <span className="show__date">{show.date}</span>
-                    <span className="show__location">{show.location}</span>
-                  </div>
+          <article className="panel panel--bandsintown">
+            <p className="panel__eyebrow">Bandsintown sync</p>
+            <h3 className="h3">Official show listings with ticket links built in.</h3>
+            <p className="p p--muted">
+              Upcoming dates and ticket buttons now come from the band's official Bandsintown page, which means new
+              shows can appear here automatically as the artist profile is updated.
+            </p>
 
-                  <div className="show__details">
-                    <span className="show__venue">{show.venue}</span>
-                  </div>
-
-                  <div className="show__right">
-                    <a className="btn btn--small btn--ghost" href={show.tickets}>
-                      Tickets
-                    </a>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <BandsintownWidget />
+          </article>
 
           <aside className="panel panel--accent showsAside">
             <p className="panel__eyebrow">Need the full calendar?</p>
-            <h3 className="h3">Ask about routing, hold dates, or private events.</h3>
+            <h3 className="h3">Open the full Bandsintown page or ask about routing directly.</h3>
             <p className="p p--muted">
-              We keep booking conversations direct and low-friction, whether you need a festival slot or a smaller room.
+              Fans can browse the live schedule and ticket links through Bandsintown, while promoters can still reach
+              out directly for holds, routing, or private event details.
             </p>
 
             <div className="tagRow">
-              <span className="tag">Festivals</span>
-              <span className="tag">Community events</span>
-              <span className="tag">Private bookings</span>
+              <span className="tag">Official ticket links</span>
+              <span className="tag">Auto-updated dates</span>
+              <span className="tag">Bandsintown tracking</span>
             </div>
 
             <div className="panel__actions">
               <a
                 className="btn btn--primary"
-                href="mailto:turquoisesteel505@gmail.com?subject=Upcoming%20Shows%20Request"
+                href={BANDSINTOWN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Request full calendar
+                Open Bandsintown
               </a>
               <a className="btn btn--ghost" href="#contact">
-                Send a message
+                Book or inquire
               </a>
             </div>
           </aside>

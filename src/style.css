@@ -855,6 +855,42 @@ section[id] {
   gap: 18px;
 }
 
+.panel--bandsintown {
+  display: grid;
+  align-content: start;
+}
+
+.bandsintownWidget {
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(244, 237, 227, 0.08);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  min-height: 480px;
+}
+
+.bandsintownWidget .bit-widget-initializer {
+  display: grid;
+  place-items: center;
+  min-height: 480px;
+  padding: 24px;
+  color: var(--muted-strong);
+  text-decoration: none;
+  font-weight: 800;
+  text-align: center;
+}
+
+.bandsintownWidget iframe {
+  width: 100%;
+  min-height: 480px;
+  border: 0;
+}
+
+.showsAside {
+  display: grid;
+  align-content: start;
+}
+
 .shows {
   display: grid;
   gap: 12px;
@@ -1313,6 +1349,12 @@ section[id] {
     align-items: start;
   }
 
+  .bandsintownWidget,
+  .bandsintownWidget .bit-widget-initializer,
+  .bandsintownWidget iframe {
+    min-height: 430px;
+  }
+
   .show__right,
   .show__right .btn {
     width: 100%;
@@ -1400,6 +1442,13 @@ section[id] {
 
   .embed__frame--spotify {
     height: 316px;
+  }
+
+  .bandsintownWidget,
+  .bandsintownWidget .bit-widget-initializer,
+  .bandsintownWidget iframe {
+    min-height: 380px;
+    border-radius: 18px;
   }
 
   .field textarea {
