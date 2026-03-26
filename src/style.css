@@ -15,6 +15,9 @@
   --bronze: #b4865d;
   --turquoise: #7ab8b2;
   --turquoise-bright: #abd7d1;
+  --turquoise-deep: #3d8981;
+  --turquoise-haze: rgba(122, 184, 178, 0.14);
+  --turquoise-glow: rgba(122, 184, 178, 0.28);
   --shadow-xl: 0 30px 84px rgba(0, 0, 0, 0.42);
   --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.32);
   --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.22);
@@ -55,9 +58,9 @@ body {
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   line-height: 1.55;
   background:
-    radial-gradient(940px 640px at 15% 10%, rgba(122, 184, 178, 0.18), transparent 60%),
-    radial-gradient(780px 520px at 88% 14%, rgba(180, 134, 93, 0.18), transparent 58%),
-    radial-gradient(1000px 720px at 50% 84%, rgba(40, 58, 55, 0.34), transparent 60%),
+    radial-gradient(1040px 680px at 14% 10%, rgba(122, 184, 178, 0.28), transparent 58%),
+    radial-gradient(760px 520px at 86% 12%, rgba(180, 134, 93, 0.2), transparent 56%),
+    radial-gradient(980px 700px at 50% 82%, rgba(48, 92, 86, 0.38), transparent 60%),
     linear-gradient(180deg, rgba(8, 7, 5, 0.52), rgba(8, 7, 5, 0.94)),
     url("/images/background.jpg");
   background-color: var(--bg);
@@ -137,8 +140,8 @@ section[id] {
   z-index: 1000;
   transform: translateY(0);
   transition: transform 220ms ease, background-color 220ms ease, border-color 220ms ease;
-  border-bottom: 1px solid rgba(244, 237, 227, 0.08);
-  background: rgba(10, 9, 7, 0.72);
+  border-bottom: 1px solid rgba(171, 215, 209, 0.14);
+  background: linear-gradient(180deg, rgba(8, 9, 8, 0.86), rgba(10, 9, 7, 0.72));
   backdrop-filter: blur(20px);
 }
 
@@ -173,11 +176,13 @@ section[id] {
   flex-shrink: 0;
   padding: 8px;
   border-radius: 18px;
-  border: 1px solid rgba(244, 237, 227, 0.12);
+  border: 1px solid rgba(171, 215, 209, 0.26);
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.14), transparent 48%),
+    radial-gradient(circle at top, rgba(171, 215, 209, 0.26), transparent 48%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.18));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(122, 184, 178, 0.08);
 }
 
 .brand__mark img {
@@ -194,7 +199,7 @@ section[id] {
 }
 
 .brand__eyebrow {
-  color: var(--muted);
+  color: var(--turquoise-bright);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -213,9 +218,9 @@ section[id] {
   width: 48px;
   height: 48px;
   padding: 0;
-  border: 1px solid rgba(244, 237, 227, 0.12);
+  border: 1px solid rgba(171, 215, 209, 0.18);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
+  background: linear-gradient(180deg, rgba(122, 184, 178, 0.12), rgba(255, 255, 255, 0.04));
   color: var(--text);
   cursor: pointer;
 }
@@ -284,18 +289,18 @@ section[id] {
 }
 
 .nav__link:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(122, 184, 178, 0.12);
   color: var(--text);
 }
 
 .nav__cta {
   padding: 11px 16px;
-  border: 1px solid rgba(171, 215, 209, 0.14);
+  border: 1px solid rgba(171, 215, 209, 0.2);
   color: #11100d;
   font-size: 14px;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--sand), var(--turquoise));
-  box-shadow: 0 16px 32px rgba(122, 184, 178, 0.2);
+  background: linear-gradient(135deg, var(--sand) 0%, #bedad4 54%, var(--turquoise) 100%);
+  box-shadow: 0 16px 32px rgba(122, 184, 178, 0.24);
 }
 
 .nav__cta:hover {
@@ -334,16 +339,16 @@ section[id] {
 .hero__scrim {
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(8, 7, 5, 0.92) 0%, rgba(8, 7, 5, 0.56) 43%, rgba(8, 7, 5, 0.84) 100%),
+    linear-gradient(90deg, rgba(8, 7, 5, 0.92) 0%, rgba(8, 7, 5, 0.52) 43%, rgba(8, 7, 5, 0.84) 100%),
     linear-gradient(180deg, rgba(8, 7, 5, 0.18), rgba(8, 7, 5, 0.84));
 }
 
 .hero__mesh {
   z-index: 1;
-  opacity: 0.3;
+  opacity: 0.42;
   background:
-    radial-gradient(560px 280px at 82% 18%, rgba(171, 215, 209, 0.2), transparent 62%),
-    radial-gradient(520px 240px at 14% 82%, rgba(180, 134, 93, 0.18), transparent 62%);
+    radial-gradient(620px 320px at 82% 18%, rgba(171, 215, 209, 0.28), transparent 62%),
+    radial-gradient(520px 260px at 14% 82%, rgba(180, 134, 93, 0.18), transparent 62%);
   mix-blend-mode: screen;
 }
 
@@ -429,16 +434,18 @@ section[id] {
   min-width: 172px;
   flex: 1 1 0;
   padding: 14px 16px;
-  border: 1px solid rgba(244, 237, 227, 0.12);
+  border: 1px solid rgba(171, 215, 209, 0.16);
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(180deg, rgba(122, 184, 178, 0.08), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.05);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .hero__pillLabel {
   display: block;
   margin-bottom: 8px;
-  color: var(--muted);
+  color: var(--turquoise-bright);
   font-size: 11px;
 }
 
@@ -451,11 +458,11 @@ section[id] {
 .hero__release {
   margin-top: 24px;
   padding: 18px 20px;
-  border: 1px solid rgba(171, 215, 209, 0.16);
+  border: 1px solid rgba(171, 215, 209, 0.22);
   border-radius: 24px;
   background:
-    linear-gradient(180deg, rgba(18, 23, 22, 0.9), rgba(15, 13, 11, 0.9)),
-    radial-gradient(circle at top right, rgba(171, 215, 209, 0.14), transparent 40%);
+    linear-gradient(180deg, rgba(18, 23, 22, 0.92), rgba(15, 13, 11, 0.9)),
+    radial-gradient(circle at top right, rgba(171, 215, 209, 0.22), transparent 40%);
   box-shadow: var(--shadow-md);
 }
 
@@ -527,7 +534,7 @@ section[id] {
   padding: 20px;
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(circle at top left, rgba(171, 215, 209, 0.14), transparent 42%),
+    radial-gradient(circle at top left, rgba(171, 215, 209, 0.2), transparent 42%),
     linear-gradient(180deg, rgba(17, 21, 20, 0.88), rgba(14, 12, 10, 0.92));
 }
 
@@ -598,13 +605,13 @@ section[id] {
 .section--alt::before {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent),
-    radial-gradient(620px 220px at 16% 18%, rgba(171, 215, 209, 0.08), transparent 60%);
+    radial-gradient(760px 280px at 16% 18%, rgba(171, 215, 209, 0.12), transparent 60%);
 }
 
 .section--cta::before {
   background:
     radial-gradient(560px 260px at 14% 24%, rgba(180, 134, 93, 0.18), transparent 62%),
-    radial-gradient(680px 320px at 84% 70%, rgba(171, 215, 209, 0.18), transparent 62%);
+    radial-gradient(760px 340px at 84% 70%, rgba(171, 215, 209, 0.24), transparent 62%);
 }
 
 .section__head {
@@ -686,27 +693,28 @@ section[id] {
 
 .panel--feature {
   background:
-    radial-gradient(circle at top right, rgba(171, 215, 209, 0.12), transparent 38%),
+    radial-gradient(circle at top right, rgba(171, 215, 209, 0.2), transparent 38%),
     radial-gradient(circle at bottom left, rgba(180, 134, 93, 0.14), transparent 34%),
     linear-gradient(180deg, rgba(22, 18, 15, 0.94), rgba(14, 12, 10, 0.92));
 }
 
 .panel--tinted {
   background:
-    radial-gradient(circle at top right, rgba(171, 215, 209, 0.16), transparent 34%),
+    radial-gradient(circle at top right, rgba(171, 215, 209, 0.24), transparent 34%),
     linear-gradient(180deg, rgba(19, 25, 24, 0.92), rgba(13, 11, 9, 0.94));
 }
 
 .panel--accent {
   background:
     radial-gradient(circle at top right, rgba(180, 134, 93, 0.2), transparent 36%),
-    radial-gradient(circle at bottom left, rgba(171, 215, 209, 0.12), transparent 38%),
+    radial-gradient(circle at bottom left, rgba(171, 215, 209, 0.18), transparent 38%),
     linear-gradient(180deg, rgba(22, 18, 15, 0.94), rgba(12, 10, 9, 0.94));
 }
 
 .panel--bronze {
   background:
     radial-gradient(circle at top left, rgba(180, 134, 93, 0.18), transparent 36%),
+    radial-gradient(circle at bottom right, rgba(171, 215, 209, 0.12), transparent 42%),
     linear-gradient(180deg, rgba(31, 24, 18, 0.94), rgba(15, 11, 9, 0.96));
 }
 
@@ -750,12 +758,12 @@ section[id] {
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--sand), var(--turquoise));
-  box-shadow: 0 16px 30px rgba(122, 184, 178, 0.2);
+  background: linear-gradient(135deg, var(--sand) 0%, #c7ded8 52%, var(--turquoise) 100%);
+  box-shadow: 0 16px 30px rgba(122, 184, 178, 0.24);
 }
 
 .btn--secondary {
-  background: linear-gradient(135deg, #ead9bf, #b9d8d1);
+  background: linear-gradient(135deg, #ead9bf 0%, #c6e2dc 46%, #8dc8c0 100%);
 }
 
 .btn--ghost {
@@ -801,10 +809,12 @@ section[id] {
   align-items: center;
   min-height: 38px;
   padding: 9px 14px;
-  border: 1px solid rgba(244, 237, 227, 0.12);
+  border: 1px solid rgba(171, 215, 209, 0.18);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--muted-strong);
+  background:
+    linear-gradient(180deg, rgba(122, 184, 178, 0.12), rgba(255, 255, 255, 0.03)),
+    rgba(255, 255, 255, 0.04);
+  color: var(--turquoise-bright);
   font-size: 13px;
   font-weight: 700;
 }
@@ -874,9 +884,12 @@ section[id] {
   align-items: center;
   gap: 16px;
   padding: 16px;
-  border: 1px solid rgba(244, 237, 227, 0.08);
+  border: 1px solid rgba(171, 215, 209, 0.16);
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.04);
+  background:
+    linear-gradient(90deg, rgba(122, 184, 178, 0.12), transparent 18%),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .show__dateBlock,
@@ -893,6 +906,7 @@ section[id] {
 .show__date {
   font-size: 1rem;
   font-weight: 800;
+  color: var(--turquoise-bright);
 }
 
 .show__location {
@@ -959,7 +973,7 @@ section[id] {
   border-radius: var(--radius-xl);
   background:
     linear-gradient(180deg, rgba(18, 16, 13, 0.92), rgba(12, 10, 8, 0.92)),
-    radial-gradient(circle at top right, rgba(171, 215, 209, 0.18), transparent 36%);
+    radial-gradient(circle at top right, rgba(171, 215, 209, 0.26), transparent 36%);
 }
 
 .cta__copy {
@@ -976,8 +990,8 @@ section[id] {
   place-items: center;
   padding: 12px;
   border-radius: 26px;
-  border: 1px solid rgba(244, 237, 227, 0.1);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(171, 215, 209, 0.22);
+  background: linear-gradient(180deg, rgba(122, 184, 178, 0.14), rgba(255, 255, 255, 0.04));
 }
 
 .cta__form {
@@ -990,7 +1004,7 @@ section[id] {
 .field input,
 .field textarea {
   width: 100%;
-  border: 1px solid rgba(244, 237, 227, 0.14);
+  border: 1px solid rgba(171, 215, 209, 0.16);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.05);
   color: var(--text);
@@ -1006,8 +1020,8 @@ section[id] {
 .cta__form input:focus,
 .field input:focus,
 .field textarea:focus {
-  border-color: rgba(220, 193, 154, 0.52);
-  box-shadow: 0 0 0 6px rgba(220, 193, 154, 0.12);
+  border-color: rgba(171, 215, 209, 0.52);
+  box-shadow: 0 0 0 6px rgba(122, 184, 178, 0.16);
 }
 
 .form {
@@ -1045,13 +1059,13 @@ section[id] {
 }
 
 .link {
-  color: var(--sand);
+  color: var(--turquoise-bright);
   text-decoration: none;
   font-weight: 800;
 }
 
 .link:hover {
-  color: var(--text);
+  color: var(--sand);
   text-decoration: underline;
 }
 
@@ -1060,7 +1074,7 @@ section[id] {
 }
 
 .footer {
-  border-top: 1px solid rgba(244, 237, 227, 0.08);
+  border-top: 1px solid rgba(171, 215, 209, 0.14);
   background: rgba(10, 9, 7, 0.82);
 }
 
@@ -1167,10 +1181,14 @@ section[id] {
     display: grid;
     gap: 8px;
     padding: 10px;
-    border: 1px solid rgba(244, 237, 227, 0.1);
+    border: 1px solid rgba(171, 215, 209, 0.16);
     border-radius: 22px;
-    background: rgba(10, 9, 7, 0.97);
+    background:
+      linear-gradient(180deg, rgba(12, 14, 13, 0.98), rgba(10, 9, 7, 0.97)),
+      rgba(10, 9, 7, 0.97);
     box-shadow: var(--shadow-md);
+    max-height: calc(100svh - 108px);
+    overflow: auto;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
@@ -1207,12 +1225,29 @@ section[id] {
     padding-top: clamp(34px, 7vw, 56px);
   }
 
+  .hero__pills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero__stack {
     max-width: 680px;
+    gap: 16px;
   }
 
   .hero__facts {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero__releaseRow {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .musicFeature__art {
+    max-width: 460px;
+    margin: 0 auto;
   }
 
   .cta__copy {
@@ -1316,6 +1351,8 @@ section[id] {
   .show {
     grid-template-columns: 1fr;
     align-items: start;
+    gap: 12px;
+    padding: 14px;
   }
 
   .show__right,
@@ -1381,6 +1418,11 @@ section[id] {
   .panel__actions {
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .hero__pills,
+  .hero__facts {
+    gap: 10px;
   }
 
   .hero__actions .btn,
