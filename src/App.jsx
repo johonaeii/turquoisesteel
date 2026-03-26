@@ -211,11 +211,9 @@ function HeroSection() {
                 />
               </div>
               <figcaption className="posterCard__meta">
-                <p className="panel__eyebrow">Poster art direction</p>
+                <p className="panel__eyebrow">Featured release</p>
                 <h2 className="h3">Worn silver, turquoise stone, open desert.</h2>
-                <p className="p p--muted">
-                  We used the new poster as the visual anchor for a cleaner, more cinematic site refresh.
-                </p>
+                <p className="p p--muted">The artwork for Homeland carries the same wide-open Southwest spirit as the music.</p>
               </figcaption>
             </figure>
 
@@ -253,7 +251,7 @@ function MusicSection() {
         <SectionIntro
           eyebrow="Listen"
           title="New release energy, old-road soul"
-          description="The refreshed site pulls from the Homeland poster and the band's logo, then pairs that visual world with cleaner listening paths on desktop and mobile."
+          description="Songs for long roads, late nights, and open desert skies."
         />
 
         <article className="panel panel--feature musicFeature">
@@ -263,10 +261,9 @@ function MusicSection() {
 
           <div className="musicFeature__body">
             <p className="panel__eyebrow">Homeland era</p>
-            <h3 className="h3">A tighter, more cinematic visual world for the band.</h3>
+            <h3 className="h3">Blues grit, desert air, and stories from home.</h3>
             <p className="p p--muted">
-              Weathered metal typography, turquoise stone accents, and wide-open Southwest tones now drive the site,
-              while keeping the listening experience faster and clearer on small screens.
+              From silver-edged slide work to turquoise-soaked atmosphere, these songs carry the spirit of the Southwest.
             </p>
 
             <div className="tagRow">
@@ -330,20 +327,18 @@ function MusicSection() {
 function VideoSection() {
   return (
     <section id="video" className="section section--alt">
-      <div className="container videoShell">
-        <div className="videoShell__copy">
-          <SectionIntro
-            eyebrow="Watch"
-            title="See the grit, volume, and room feel live"
-            description="Performance footage gives fans and bookers a quick read on the band's live energy without making mobile visitors fight through the layout."
-          />
+        <div className="container videoShell">
+          <div className="videoShell__copy">
+            <SectionIntro
+              eyebrow="Watch"
+              title="See the grit, volume, and room feel live"
+              description="Get a feel for the live energy, the room, and the sound before the next show."
+            />
 
-          <div className="panel panel--soft">
-            <p className="panel__eyebrow">Latest clip</p>
-            <h3 className="h3">Turquoise Steel Live</h3>
-            <p className="p p--muted">
-              A straightforward live look at the band, framed in a cleaner card that scales down better on phones.
-            </p>
+            <div className="panel panel--soft">
+              <p className="panel__eyebrow">Latest clip</p>
+              <h3 className="h3">Turquoise Steel Live</h3>
+              <p className="p p--muted">A live performance clip from the road.</p>
 
             <div className="panel__actions">
               <a
@@ -384,7 +379,7 @@ function ShowsSection() {
         <SectionIntro
           eyebrow="Shows"
           title="Upcoming dates across the Southwest"
-          description="The clean show list is back, but each ticket button now goes straight to the matching Bandsintown event or festival page."
+          description="Catch the next show and head straight to the official ticket page for each event."
         />
 
         <div className="grid grid--shows">
@@ -417,17 +412,14 @@ function ShowsSection() {
           </div>
 
           <aside className="panel panel--accent showsAside">
-            <p className="panel__eyebrow">Need the full calendar?</p>
-            <h3 className="h3">Open the full Bandsintown page or ask about routing directly.</h3>
-            <p className="p p--muted">
-              Fans can jump straight to the official event pages for tickets, while promoters can still reach out
-              directly for holds, routing, or private event details.
-            </p>
+            <p className="panel__eyebrow">Need more dates?</p>
+            <h3 className="h3">See the full calendar or reach out about upcoming bookings.</h3>
+            <p className="p p--muted">Follow the full show schedule, set reminders, and stay close to new announcements.</p>
 
             <div className="tagRow">
-              <span className="tag">Bandsintown tickets</span>
-              <span className="tag">Phoenix added</span>
-              <span className="tag">Direct booking contact</span>
+              <span className="tag">Official tickets</span>
+              <span className="tag">Set reminders</span>
+              <span className="tag">Booking inquiries</span>
             </div>
 
             <div className="panel__actions">
@@ -437,10 +429,10 @@ function ShowsSection() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Open Bandsintown
+                View full calendar
               </a>
               <a className="btn btn--ghost" href="#contact">
-                Book or inquire
+                Booking info
               </a>
             </div>
           </aside>
@@ -457,7 +449,7 @@ function BookingSection() {
         <SectionIntro
           eyebrow="Booking"
           title="Built for festivals, listening rooms, and community stages"
-          description="The updated layout keeps the practical stuff easy to find while still feeling like Turquoise Steel instead of a generic band template."
+          description="Turquoise Steel brings desert blues, road-tested rock, and family chemistry to rooms big and small."
         />
 
         <div className="grid grid--booking">
@@ -562,7 +554,7 @@ function ContactSection() {
         <SectionIntro
           eyebrow="Contact"
           title="Reach Turquoise Steel directly"
-          description="Booking requests, collaboration ideas, and music questions all come through here, with a layout that stays readable and tappable on smaller screens."
+          description="For booking requests, collaborations, and questions about the music, send a note and the band will be in touch."
         />
 
         <div className="grid grid--contact">
