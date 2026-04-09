@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+const ARTIST_SPOTIFY_URL = "https://open.spotify.com/search/Turquoise%20Steel";
+const YOUTUBE_LIVE_URL = "https://www.youtube.com/watch?v=DOsFYZJGd3w";
+const CONTACT_EMAIL = "turquoisesteel505@gmail.com";
+
 const NAV_LINKS = [
   { href: "#music", label: "Music", className: "nav__link" },
   { href: "#video", label: "Video", className: "nav__link" },
@@ -11,8 +15,8 @@ const NAV_LINKS = [
 
 const SOCIAL_LINKS = [
   { href: "https://www.instagram.com/turquoise_steel", label: "Instagram" },
-  { href: "https://www.youtube.com/watch?v=DOsFYZJGd3w", label: "YouTube" },
-  { href: "https://open.spotify.com/search/Turquoise%20Steel", label: "Spotify" }
+  { href: YOUTUBE_LIVE_URL, label: "YouTube" },
+  { href: ARTIST_SPOTIFY_URL, label: "Spotify" }
 ];
 
 const SHOWS = [
@@ -62,7 +66,7 @@ const FEATURED_TRACKS = [
     embedSrc: "https://open.spotify.com/embed/track/7Eks90sec4CaJCiD5kK1iG?utm_source=generator",
     primaryHref: "https://open.spotify.com/track/7Eks90sec4CaJCiD5kK1iG",
     primaryLabel: "Play on Spotify",
-    secondaryHref: "https://open.spotify.com/search/Turquoise%20Steel",
+    secondaryHref: ARTIST_SPOTIFY_URL,
     secondaryLabel: "Browse artist page"
   },
   {
@@ -71,14 +75,14 @@ const FEATURED_TRACKS = [
     description: "Not knowing where you're going, but knowing you'll meet dirt and rez cars.",
     embedTitle: "Spotify embed for Hitchhiking Blues",
     embedSrc: "https://open.spotify.com/embed/track/6yDxt1kXjggMO4TFYxQfVi?utm_source=generator",
-    primaryHref: "https://open.spotify.com/search/Turquoise%20Steel",
+    primaryHref: ARTIST_SPOTIFY_URL,
     primaryLabel: "Follow on Spotify",
     secondaryHref: "https://open.spotify.com/track/6yDxt1kXjggMO4TFYxQfVi",
     secondaryLabel: "Save this track"
   }
 ];
 
-const RELEASE_TAGS = ["Released February 20, 2026", "Desert-blues energy", "Turquoise grit"];
+const RELEASE_TAGS = ["Released February 20, 2026", "Southwest blues-rock", "Turquoise grit"];
 
 const BOOKING_POINTS = [
   "Family-led live act rooted in Navajo country storytelling and blues tradition.",
@@ -141,24 +145,19 @@ function SiteNav({ isMenuOpen, isNavHidden, onToggleMenu, onMenuClick }) {
 function HeroSection() {
   return (
     <section id="top" className="hero">
-      <div className="hero__backdrop" aria-hidden="true">
-        <img
-          src="/images/background.jpg"
-          alt=""
-          className="hero__backdropImage"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
-      </div>
-      <div className="hero__scrim" aria-hidden="true"></div>
-      <div className="hero__mesh" aria-hidden="true"></div>
+      <div className="hero__sky" aria-hidden="true"></div>
+      <div className="hero__horizon" aria-hidden="true"></div>
+      <div className="hero__dust" aria-hidden="true"></div>
 
       <div className="container hero__content">
         <div className="hero__layout">
           <div className="hero__copy">
-            <p className="kicker">Desert blues from Navajo country</p>
-            <h1 className="title">Turquoise Steel</h1>
+            <p className="kicker">Homeland era</p>
+            <p className="hero__stamp">Forged in Albuquerque, carried across the Southwest</p>
+            <h1 className="title">
+              <span>Turquoise</span>
+              <span>Steel</span>
+            </h1>
             <p className="subtitle">
               Electric blues and desert rock with turquoise grit, road dust, and enough soul for late-night rooms,
               festival stages, and open-sky sets.
@@ -166,7 +165,7 @@ function HeroSection() {
 
             <div className="hero__actions">
               <a className="btn btn--primary" href="#music">
-                Listen now
+                Hear Homeland
               </a>
               <a className="btn btn--ghost" href="#shows">
                 See upcoming shows
@@ -187,14 +186,12 @@ function HeroSection() {
               <div className="hero__releaseRow">
                 <div>
                   <p className="hero__releaseTitle">Homeland</p>
-                  <p className="p p--muted">Released February 20, 2026.</p>
+                  <p className="p p--muted">
+                    A record shaped by worn silver typography, open-road blues, and a homeland horizon that never feels
+                    small.
+                  </p>
                 </div>
-                <a
-                  className="link link--arrow"
-                  href="https://open.spotify.com/search/Turquoise%20Steel"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a className="link link--arrow" href={ARTIST_SPOTIFY_URL} target="_blank" rel="noopener noreferrer">
                   Open artist page
                 </a>
               </div>
@@ -212,8 +209,12 @@ function HeroSection() {
               </div>
               <figcaption className="posterCard__meta">
                 <p className="panel__eyebrow">Featured release</p>
-                <h2 className="h3">Worn silver, turquoise stone, open desert.</h2>
-                <p className="p p--muted">The artwork for Homeland carries the same wide-open Southwest spirit as the music.</p>
+                <p className="posterCard__stamp">Coming home 2/20/26</p>
+                <h2 className="h3">Weathered silver, turquoise stone, and an open homeland horizon.</h2>
+                <p className="p p--muted">
+                  The release art now sets the whole site tone too: ceremonial, rugged, cinematic, and rooted in desert
+                  distance.
+                </p>
               </figcaption>
             </figure>
 
@@ -226,7 +227,8 @@ function HeroSection() {
                 />
               </div>
               <div className="crestCard__body">
-                <p className="panel__eyebrow">Road-ready snapshot</p>
+                <p className="panel__eyebrow">Road ledger</p>
+                <p className="crestCard__stamp">Steel strings, red earth, and family-built sets</p>
                 <div className="hero__facts">
                   {HERO_FACTS.map((fact) => (
                     <div key={fact.label} className="statCard">
@@ -250,20 +252,30 @@ function MusicSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Listen"
-          title="New release energy, old-road soul"
-          description="Songs for long roads, late nights, and open desert skies."
+          title="Homeland carries open-sky weight and worn-silver detail"
+          description="Stream the new material and the songs that put road dust, family chemistry, and desert air into the set."
         />
 
         <article className="panel panel--feature musicFeature">
           <div className="musicFeature__art">
-            <img src="/images/homeland-poster.png" alt="Homeland poster art for Turquoise Steel." />
+            <div className="musicFeature__poster">
+              <img src="/images/homeland-poster.png" alt="Homeland poster art for Turquoise Steel." />
+            </div>
+            <div className="musicFeature__detail">
+              <img
+                src="/images/background.jpg"
+                alt="Close-up of a guitar with turquoise and silver jewelry."
+              />
+            </div>
           </div>
 
           <div className="musicFeature__body">
             <p className="panel__eyebrow">Homeland era</p>
-            <h3 className="h3">Blues grit, desert air, and stories from home.</h3>
+            <p className="posterCard__stamp">Dust, copper light, and cool stone</p>
+            <h3 className="h3">A record framed in silver, stone, and canyon light.</h3>
             <p className="p p--muted">
-              From silver-edged slide work to turquoise-soaked atmosphere, these songs carry the spirit of the Southwest.
+              The artwork and the songs share the same tension: hard steel against sacred ground, cool turquoise against
+              warm desert earth.
             </p>
 
             <div className="tagRow">
@@ -275,16 +287,11 @@ function MusicSection() {
             </div>
 
             <div className="panel__actions">
-              <a
-                className="btn btn--primary"
-                href="https://open.spotify.com/search/Turquoise%20Steel"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="btn btn--primary" href={ARTIST_SPOTIFY_URL} target="_blank" rel="noopener noreferrer">
                 Stream the catalog
               </a>
               <a className="btn btn--ghost" href="#subscribe">
-                Get release updates
+                Join the release trail
               </a>
             </div>
           </div>
@@ -327,26 +334,21 @@ function MusicSection() {
 function VideoSection() {
   return (
     <section id="video" className="section section--alt">
-        <div className="container videoShell">
-          <div className="videoShell__copy">
-            <SectionIntro
-              eyebrow="Watch"
-              title="See the grit, volume, and room feel live"
-              description="Get a feel for the live energy, the room, and the sound before the next show."
-            />
+      <div className="container videoShell">
+        <div className="videoShell__copy">
+          <SectionIntro
+            eyebrow="Watch"
+            title="See the songs land with room-shaking grit"
+            description="The live clips keep the music grounded: hands on strings, amps breathing, and the room carrying it back."
+          />
 
-            <div className="panel panel--soft">
-              <p className="panel__eyebrow">Latest clip</p>
-              <h3 className="h3">Turquoise Steel Live</h3>
-              <p className="p p--muted">A live performance clip from the road.</p>
+          <div className="panel panel--soft">
+            <p className="panel__eyebrow">Latest clip</p>
+            <h3 className="h3">Turquoise Steel live</h3>
+            <p className="p p--muted">A recent live performance clip from the road, left rough enough to keep the room in it.</p>
 
             <div className="panel__actions">
-              <a
-                className="btn btn--secondary"
-                href="https://www.youtube.com/watch?v=DOsFYZJGd3w"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="btn btn--secondary" href={YOUTUBE_LIVE_URL} target="_blank" rel="noopener noreferrer">
                 Watch on YouTube
               </a>
             </div>
@@ -378,8 +380,8 @@ function ShowsSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Shows"
-          title="Upcoming dates across the Southwest"
-          description="Catch the next show and head straight to the official ticket page for each event."
+          title="Upcoming dates across the open desert circuit"
+          description="Catch the next room, festival, or community stage and head straight to the official ticket page for each event."
         />
 
         <div className="grid grid--shows">
@@ -423,12 +425,7 @@ function ShowsSection() {
             </div>
 
             <div className="panel__actions">
-              <a
-                className="btn btn--primary"
-                href={BANDSINTOWN_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="btn btn--primary" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
                 View full calendar
               </a>
               <a className="btn btn--ghost" href="#contact">
@@ -448,14 +445,14 @@ function BookingSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Booking"
-          title="Built for festivals, listening rooms, and community stages"
+          title="A live set with road dust, ceremony, and family force"
           description="Turquoise Steel brings desert blues, road-tested rock, and family chemistry to rooms big and small."
         />
 
         <div className="grid grid--booking">
           <article className="panel">
             <p className="panel__eyebrow">Why promoters reach out</p>
-            <h3 className="h3">A live set grounded in family chemistry and road-tested blues.</h3>
+            <h3 className="h3">Built for festivals, listening rooms, and community stages.</h3>
             <ul className="featureList">
               {BOOKING_POINTS.map((point) => (
                 <li key={point}>{point}</li>
@@ -484,7 +481,7 @@ function BookingSection() {
               <a className="btn btn--primary" href="#contact">
                 Book the band
               </a>
-              <a className="btn btn--ghost" href="mailto:turquoisesteel505@gmail.com">
+              <a className="btn btn--ghost" href={`mailto:${CONTACT_EMAIL}`}>
                 Email directly
               </a>
             </div>
@@ -553,7 +550,7 @@ function ContactSection() {
       <div className="container">
         <SectionIntro
           eyebrow="Contact"
-          title="Reach Turquoise Steel directly"
+          title="Reach Turquoise Steel without the extra layers"
           description="For booking requests, collaborations, and questions about the music, send a note and the band will be in touch."
         />
 
@@ -600,8 +597,8 @@ function ContactSection() {
             <h3 className="h3">Keep it simple.</h3>
             <p className="p p--muted">
               Email:{" "}
-              <a className="link" href="mailto:turquoisesteel505@gmail.com">
-                turquoisesteel505@gmail.com
+              <a className="link" href={`mailto:${CONTACT_EMAIL}`}>
+                {CONTACT_EMAIL}
               </a>
             </p>
 
@@ -640,7 +637,7 @@ function Footer() {
       <div className="container footer__inner">
         <div>
           <p className="footer__title">Turquoise Steel</p>
-          <p className="footer__copy">Copyright {year} Turquoise Steel. Blues and rock from Navajo country.</p>
+          <p className="footer__copy">Copyright {year} Turquoise Steel. Desert blues and rock from Navajo country.</p>
         </div>
 
         <div className="footer__links">
