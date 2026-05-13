@@ -21,8 +21,7 @@ const SOCIAL_LINKS = [
 
 const BANDSINTOWN_URL = "https://www.bandsintown.com/a/15599939-turquoise-steel";
 const BANDSINTOWN_ARTIST_ID = "id_15599939";
-const BANDSINTOWN_WIDGET_SCRIPT_ID = "bandsintown-widget-script";
-const BANDSINTOWN_WIDGET_SCRIPT_URL = "https://widgetv3.bandsintown.com/main.min.js";
+const BANDSINTOWN_API_BASE = `https://rest.bandsintown.com/artists/${BANDSINTOWN_ARTIST_ID}/events`;
 
 const HERO_PILLS = [
   { label: "Home base", value: "Albuquerque, NM" },
@@ -70,6 +69,70 @@ const BOOKING_POINTS = [
 ];
 
 const MOBILE_MENU_QUERY = "(max-width: 900px)";
+const DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric"
+});
+
+const MONTH_DAY_FORMATTER = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric"
+});
+
+const DAY_FORMATTER = new Intl.DateTimeFormat("en-US", {
+  day: "numeric"
+});
+
+function getBandsintownAppId() {
+  if (typeof window === "undefined" || !window.location.hostname) {
+    return "js_turquoisesteel.com";
+  }
+
+  return `js_${window.location.hostname}`;
+}
+
+function parseDateOnly(value) {
+  const [year, month, day] = value.slice(0, 10).split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function formatDateRange(startValue, endValue = startValue) {
+  const start = parseDateOnly(startValue);
+  const end = parseDateOnly(endValue || startValue);
+
+  if (start.getTime() === end.getTime()) {
+    return DATE_FORMATTER.format(start);
+  }
+
+  const sameMonth = start.getMonth() === end.getMonth();
+  const sameYear = start.getFullYear() === end.getFullYear();
+
+  if (sameMonth && sameYear) {
+    return `${MONTH_DAY_FORMATTER.format(start)}-${DAY_FORMATTER.format(end)}, ${start.getFullYear()}`;
+  }
+
+  if (sameYear) {
+    return `${MONTH_DAY_FORMATTER.format(start)} - ${DATE_FORMATTER.format(end)}`;
+  }
+
+  return `${DATE_FORMATTER.format(start)} - ${DATE_FORMATTER.format(end)}`;
+}
+
+function normalizeBandsintownEvent(event) {
+  const startDate = event.festival_start_date || event.starts_at || event.datetime;
+  const endDate = event.festival_end_date || event.ends_at || startDate;
+  const offer = event.offers?.find((item) => item.status === "available") || event.offers?.[0];
+
+  return {
+    id: event.id,
+    date: formatDateRange(startDate, endDate),
+    venue: event.title || event.venue?.name || "Turquoise Steel live",
+    location: event.venue?.location || [event.venue?.city, event.venue?.region].filter(Boolean).join(", "),
+    tickets: offer?.url || event.url || BANDSINTOWN_URL,
+    cta: offer?.type || "Details"
+  };
+}
 
 function SectionIntro({ eyebrow, title, description, align = "left" }) {
   return (
@@ -82,47 +145,98 @@ function SectionIntro({ eyebrow, title, description, align = "left" }) {
 }
 
 function BandsintownTourDates() {
+  const [shows, setShows] = useState([]);
+  const [status, setStatus] = useState("loading");
+
   useEffect(() => {
-    if (document.getElementById(BANDSINTOWN_WIDGET_SCRIPT_ID)) {
-      return;
+    const controller = new AbortController();
+    const params = new URLSearchParams({
+      app_id: getBandsintownAppId(),
+      date: "upcoming"
+    });
+
+    async function loadTourDates() {
+      try {
+        const response = await fetch(`${BANDSINTOWN_API_BASE}?${params.toString()}`, {
+          headers: { Accept: "application/json" },
+          signal: controller.signal
+        });
+
+        if (!response.ok) {
+          throw new Error(`Bandsintown returned ${response.status}`);
+        }
+
+        const data = await response.json();
+        const normalizedShows = Array.isArray(data) ? data.map(normalizeBandsintownEvent) : [];
+
+        if (!controller.signal.aborted) {
+          setShows(normalizedShows);
+          setStatus("ready");
+        }
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.error("Unable to load Bandsintown tour dates", error);
+          setStatus("error");
+        }
+      }
     }
 
-    const script = document.createElement("script");
-    script.id = BANDSINTOWN_WIDGET_SCRIPT_ID;
-    script.src = BANDSINTOWN_WIDGET_SCRIPT_URL;
-    script.async = true;
-    script.charset = "utf-8";
-    document.body.appendChild(script);
+    loadTourDates();
+
+    return () => controller.abort();
   }, []);
 
+  if (status === "loading") {
+    return (
+      <ul className="shows" aria-live="polite" aria-label="Show dates">
+        <li className="show show--status">Loading official tour dates from Bandsintown...</li>
+      </ul>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <div className="showsFallback" aria-live="polite">
+        <p className="p p--muted">Tour dates could not load from Bandsintown right now.</p>
+        <a className="btn btn--small btn--ghost" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
+          View full calendar
+        </a>
+      </div>
+    );
+  }
+
+  if (shows.length === 0) {
+    return (
+      <div className="showsFallback" aria-live="polite">
+        <p className="p p--muted">No upcoming Turquoise Steel dates are listed on Bandsintown right now.</p>
+        <a className="btn btn--small btn--ghost" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
+          Track future shows
+        </a>
+      </div>
+    );
+  }
+
   return (
-    <div className="bandsintownEmbed" aria-label="Official Bandsintown tour dates">
-      <a
-        className="bit-widget-initializer"
-        data-artist-name={BANDSINTOWN_ARTIST_ID}
-        data-app-id="turquoise_steel_site"
-        data-affil-code="turquoise_steel_site"
-        data-background-color="rgba(0,0,0,0)"
-        data-separator-color="rgba(183,173,160,0.18)"
-        data-text-color="#ebe1d2"
-        data-link-color="#7fa9a3"
-        data-link-text-color="#15100c"
-        data-font="Avenir Next"
-        data-widget-width="100%"
-        data-display-logo="false"
-        data-display-track-button="false"
-        data-display-play-my-city="false"
-        data-display-local-dates="false"
-        data-display-past-dates="false"
-        data-display-start-time="true"
-        data-display-lineup="false"
-        data-display-details="false"
-        data-display-limit="6"
-        data-language="en"
-      >
-        Loading official tour dates from Bandsintown...
-      </a>
-    </div>
+    <ul className="shows" aria-live="polite" aria-label="Official Bandsintown show dates">
+      {shows.map((show) => (
+        <li key={show.id} className="show">
+          <div className="show__dateBlock">
+            <span className="show__date">{show.date}</span>
+            <span className="show__location">{show.location}</span>
+          </div>
+
+          <div className="show__details">
+            <span className="show__venue">{show.venue}</span>
+          </div>
+
+          <div className="show__right">
+            <a className="btn btn--small btn--ghost" href={show.tickets} target="_blank" rel="noopener noreferrer">
+              {show.cta}
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }
 

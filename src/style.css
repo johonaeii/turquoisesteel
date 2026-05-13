@@ -1066,94 +1066,18 @@ section[id] {
   min-height: 160px;
 }
 
-.bandsintownEmbed,
-.bandsintownEmbed .bit-widget-container,
-.bandsintownEmbed .bit-widget {
-  width: 100% !important;
-  min-width: 0;
-}
-
-.bandsintownEmbed,
-.bandsintownEmbed :is(table, tbody, tr, td, th, div, span, a) {
-  font-family: inherit !important;
-}
-
-.bandsintownEmbed .bit-widget-initializer {
-  display: block;
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.bandsintownEmbed :is(.bit-widget, .bit-widget-container, .bit-events-container, .bit-events, #bit-events) {
-  color: var(--text) !important;
-  background: transparent !important;
-}
-
-.bandsintownEmbed :is(.bit-event, tr.bit-event, #bit-events tr) {
-  border: 1px solid rgba(183, 173, 160, 0.14) !important;
-  border-radius: 14px !important;
-  background:
-    linear-gradient(90deg, rgba(127, 169, 163, 0.08), transparent 18%),
-    linear-gradient(180deg, rgba(33, 26, 22, 0.94), rgba(17, 13, 11, 0.96)) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-.bandsintownEmbed :is(.bit-event, tr.bit-event, #bit-events tr) + :is(.bit-event, tr.bit-event, #bit-events tr) {
-  margin-top: 10px;
-}
-
-.bandsintownEmbed :is(td, th, .bit-event) {
-  border-color: rgba(183, 173, 160, 0.14) !important;
-}
-
-.bandsintownEmbed :is(td, th) {
-  padding: 16px 18px !important;
-}
-
-.bandsintownEmbed :is(.bit-date, .bit-event-date) {
-  color: rgba(220, 205, 186, 0.94) !important;
-  font-size: 0.94rem !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.05em !important;
-  text-transform: uppercase !important;
-}
-
-.bandsintownEmbed :is(.bit-venue, .bit-event-title, .bit-event-location) {
-  color: var(--muted-strong) !important;
-  font-weight: 700 !important;
-}
-
-.bandsintownEmbed :is(.bit-location, .bit-event-location) {
-  color: rgba(127, 169, 163, 0.88) !important;
-  font-size: 0.9rem !important;
-}
-
-.bandsintownEmbed :is(a, .bit-button, .bit-rsvp, .bit-offers) {
-  color: var(--text) !important;
-}
-
-.bandsintownEmbed :is(.bit-button, .bit-rsvp, .bit-offers, .bit-upcoming-events-show-all-button) {
-  min-height: 42px !important;
-  border: 1px solid rgba(220, 205, 186, 0.16) !important;
-  border-radius: 12px !important;
-  background: linear-gradient(180deg, rgba(31, 24, 20, 0.92), rgba(14, 11, 9, 0.98)) !important;
-  color: var(--text) !important;
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-}
-
-.bandsintownEmbed :is(.bit-no-dates-container, .bit-no-dates-title, .bit-no-dates-text) {
-  color: var(--muted-strong) !important;
-}
-
 .shows {
   display: grid;
   gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.showsFallback {
+  display: grid;
+  gap: 16px;
+  align-content: start;
 }
 
 .show {
@@ -1168,6 +1092,11 @@ section[id] {
     linear-gradient(90deg, rgba(127, 169, 163, 0.08), transparent 18%),
     linear-gradient(180deg, rgba(33, 26, 22, 0.94), rgba(17, 13, 11, 0.96));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.show--status {
+  grid-template-columns: 1fr;
+  color: var(--muted);
 }
 
 .show__dateBlock,
