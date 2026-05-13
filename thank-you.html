@@ -8,8 +8,8 @@
     <style>
       :root {
         --bg: #0d0907;
-        --panel: rgba(30, 23, 19, 0.94);
-        --stroke: rgba(183, 173, 160, 0.2);
+        --panel: rgba(28, 22, 19, 0.94);
+        --stroke: rgba(183, 173, 160, 0.18);
         --text: #ebe1d2;
         --muted: rgba(220, 205, 186, 0.72);
         --sand: #b18b5d;
@@ -31,11 +31,11 @@
         place-items: center;
         padding: 24px;
         color: var(--text);
-        font-family: "Gill Sans", "Trebuchet MS", sans-serif;
+        font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
         background:
-          radial-gradient(920px 440px at 50% 104%, rgba(177, 139, 93, 0.32), transparent 58%),
-          radial-gradient(760px 360px at 16% 12%, rgba(95, 52, 36, 0.3), transparent 60%),
-          radial-gradient(700px 300px at 86% 14%, rgba(127, 169, 163, 0.16), transparent 58%),
+          radial-gradient(920px 440px at 50% 104%, rgba(177, 139, 93, 0.26), transparent 58%),
+          radial-gradient(760px 360px at 16% 12%, rgba(95, 52, 36, 0.2), transparent 60%),
+          radial-gradient(700px 300px at 86% 14%, rgba(127, 169, 163, 0.12), transparent 58%),
           linear-gradient(180deg, #17110e 0%, #0d0907 42%, #070503 100%);
       }
 
@@ -44,7 +44,7 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
-        opacity: 0.08;
+        opacity: 0.05;
         background:
           repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 3px),
           repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 4px);
@@ -59,16 +59,16 @@
         position: relative;
         display: grid;
         grid-template-columns: minmax(0, 1.12fr) minmax(260px, 0.88fr);
-        gap: 24px;
-        padding: clamp(22px, 4vw, 40px);
+        gap: 28px;
+        padding: clamp(22px, 3.6vw, 36px);
         overflow: hidden;
-        border-radius: 32px;
+        border-radius: 28px;
         border: 1px solid var(--stroke);
         background:
-          radial-gradient(circle at top right, rgba(127, 169, 163, 0.18), transparent 34%),
+          radial-gradient(circle at top right, rgba(127, 169, 163, 0.12), transparent 34%),
           linear-gradient(180deg, var(--panel), rgba(12, 10, 8, 0.98));
-        box-shadow: 0 28px 76px rgba(0, 0, 0, 0.42);
-        backdrop-filter: blur(14px);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.36);
+        backdrop-filter: blur(12px);
       }
 
       .card::after {
@@ -77,8 +77,8 @@
         inset: 0;
         pointer-events: none;
         background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 20%, transparent 82%, rgba(255, 255, 255, 0.04)),
-          linear-gradient(300deg, rgba(201, 121, 39, 0.06), transparent 32%);
+          linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 20%, transparent 82%, rgba(255, 255, 255, 0.025)),
+          linear-gradient(300deg, rgba(201, 121, 39, 0.04), transparent 32%);
       }
 
       .copyWrap,
@@ -106,7 +106,7 @@
       .eyebrow {
         margin-bottom: 12px;
         text-transform: uppercase;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.14em;
         font-size: 11px;
         font-weight: 800;
         color: var(--sand);
@@ -125,9 +125,9 @@
       h1 {
         margin: 0 0 12px;
         font-family: "Baskerville Old Face", "Palatino Linotype", "Book Antiqua", serif;
-        font-size: clamp(34px, 6vw, 60px);
-        line-height: 0.92;
-        letter-spacing: 0.05em;
+        font-size: clamp(34px, 5.6vw, 56px);
+        line-height: 0.96;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
         color: transparent;
         background: linear-gradient(180deg, #f1ece4 0%, #d3c7ba 28%, #8e7e71 64%, #efe5d8 100%);
@@ -138,6 +138,7 @@
       .copy {
         max-width: 54ch;
         color: var(--muted);
+        line-height: 1.62;
       }
 
       .actions {
@@ -154,20 +155,20 @@
       }
 
       .crest {
-        width: 110px;
-        height: 110px;
+        width: 100px;
+        height: 100px;
         display: grid;
         place-items: center;
         padding: 12px;
-        border-radius: 24px;
+        border-radius: 18px;
         background:
-          radial-gradient(circle at top, rgba(220, 205, 186, 0.12), transparent 48%),
-          linear-gradient(180deg, rgba(71, 61, 55, 0.38), rgba(15, 12, 10, 0.84));
+          radial-gradient(circle at top, rgba(220, 205, 186, 0.08), transparent 48%),
+          linear-gradient(180deg, rgba(71, 61, 55, 0.28), rgba(15, 12, 10, 0.84));
       }
 
       .poster {
         overflow: hidden;
-        border-radius: 24px;
+        border-radius: 18px;
       }
 
       .poster img {
@@ -181,10 +182,10 @@
         justify-content: center;
         min-height: 48px;
         padding: 12px 18px;
-        border-radius: 14px;
+        border-radius: 12px;
         font-size: 12px;
         font-weight: 800;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         text-decoration: none;
         border: 1px solid var(--stroke);
@@ -193,8 +194,8 @@
       .primary {
         color: #15100c;
         background:
-          linear-gradient(180deg, rgba(244, 239, 233, 0.98), rgba(183, 173, 160, 0.94) 38%, rgba(127, 169, 163, 0.96)),
-          linear-gradient(120deg, rgba(127, 169, 163, 0.22), rgba(220, 205, 186, 0.18));
+          linear-gradient(180deg, rgba(244, 239, 233, 0.98), rgba(193, 184, 173, 0.94) 42%, rgba(127, 169, 163, 0.94)),
+          linear-gradient(120deg, rgba(127, 169, 163, 0.16), rgba(220, 205, 186, 0.12));
       }
 
       .secondary {
