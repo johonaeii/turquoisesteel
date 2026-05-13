@@ -19,31 +19,10 @@ const SOCIAL_LINKS = [
   { href: ARTIST_SPOTIFY_URL, label: "Spotify" }
 ];
 
-const SHOWS = [
-  {
-    date: "May 5, 2026",
-    venue: "Rhythm Room",
-    location: "Phoenix, AZ",
-    tickets: "https://www.bandsintown.com/e/1038427053-levi-platero-at-rhythm-room",
-    cta: "Tickets"
-  },
-  {
-    date: "May 16-17, 2026",
-    venue: "Crawdaddy Blues Festival 2026",
-    location: "Madrid, NM",
-    tickets: "https://www.bandsintown.com/f/212111",
-    cta: "Tickets"
-  },
-  {
-    date: "May 24, 2026",
-    venue: "Canyon Blues & Jazz Memorial Day Blues Festival 2026",
-    location: "Placitas, NM",
-    tickets: "https://www.bandsintown.com/f/208551",
-    cta: "Tickets"
-  }
-];
-
 const BANDSINTOWN_URL = "https://www.bandsintown.com/a/15599939-turquoise-steel";
+const BANDSINTOWN_ARTIST_ID = "id_15599939";
+const BANDSINTOWN_WIDGET_SCRIPT_ID = "bandsintown-widget-script";
+const BANDSINTOWN_WIDGET_SCRIPT_URL = "https://widgetv3.bandsintown.com/main.min.js";
 
 const HERO_PILLS = [
   { label: "Home base", value: "Albuquerque, NM" },
@@ -98,6 +77,51 @@ function SectionIntro({ eyebrow, title, description, align = "left" }) {
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
       <h2 className="h2">{title}</h2>
       {description ? <p className="p">{description}</p> : null}
+    </div>
+  );
+}
+
+function BandsintownTourDates() {
+  useEffect(() => {
+    if (document.getElementById(BANDSINTOWN_WIDGET_SCRIPT_ID)) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = BANDSINTOWN_WIDGET_SCRIPT_ID;
+    script.src = BANDSINTOWN_WIDGET_SCRIPT_URL;
+    script.async = true;
+    script.charset = "utf-8";
+    document.body.appendChild(script);
+  }, []);
+
+  return (
+    <div className="bandsintownEmbed" aria-label="Official Bandsintown tour dates">
+      <a
+        className="bit-widget-initializer"
+        data-artist-name={BANDSINTOWN_ARTIST_ID}
+        data-app-id="turquoise_steel_site"
+        data-affil-code="turquoise_steel_site"
+        data-background-color="rgba(0,0,0,0)"
+        data-separator-color="rgba(183,173,160,0.18)"
+        data-text-color="#ebe1d2"
+        data-link-color="#7fa9a3"
+        data-link-text-color="#15100c"
+        data-font="Avenir Next"
+        data-widget-width="100%"
+        data-display-logo="false"
+        data-display-track-button="false"
+        data-display-play-my-city="false"
+        data-display-local-dates="false"
+        data-display-past-dates="false"
+        data-display-start-time="true"
+        data-display-lineup="false"
+        data-display-details="false"
+        data-display-limit="6"
+        data-language="en"
+      >
+        Loading official tour dates from Bandsintown...
+      </a>
     </div>
   );
 }
@@ -485,32 +509,8 @@ function ShowsSection() {
         />
 
         <div className="grid grid--shows">
-          <div className="panel">
-            <ul className="shows" aria-label="Show dates">
-              {SHOWS.map((show) => (
-                <li key={`${show.date}-${show.venue}`} className="show">
-                  <div className="show__dateBlock">
-                    <span className="show__date">{show.date}</span>
-                    <span className="show__location">{show.location}</span>
-                  </div>
-
-                  <div className="show__details">
-                    <span className="show__venue">{show.venue}</span>
-                  </div>
-
-                  <div className="show__right">
-                    <a
-                      className="btn btn--small btn--ghost"
-                      href={show.tickets}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {show.cta}
-                    </a>
-                  </div>
-                </li>
-              ))}
-            </ul>
+          <div className="panel showsPanel">
+            <BandsintownTourDates />
           </div>
 
           <aside className="panel panel--accent showsAside">
