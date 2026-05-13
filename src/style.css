@@ -88,6 +88,7 @@ a {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 button,
@@ -111,6 +112,18 @@ textarea:focus-visible {
 .container {
   width: min(100% - 40px, var(--max));
   margin: 0 auto;
+}
+
+.container > *,
+.grid > *,
+.hero__layout > *,
+.videoShell > *,
+.cta > *,
+.cta__copy > *,
+.panel,
+.show > *,
+.footer__inner > * {
+  min-width: 0;
 }
 
 main,
@@ -1258,6 +1271,18 @@ section[id] {
   color: rgba(146, 186, 181, 0.98);
   text-decoration: none;
   font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.footer__copy,
+.hero__pill strong,
+.statCard__value,
+.show__date,
+.show__venue,
+.show__location,
+.bookingCard__grid strong,
+.contactCard .p {
+  overflow-wrap: anywhere;
 }
 
 .link:hover {

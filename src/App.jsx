@@ -90,6 +90,8 @@ const BOOKING_POINTS = [
   "Direct communication for availability, routing, technical details, and event coordination."
 ];
 
+const MOBILE_MENU_QUERY = "(max-width: 900px)";
+
 function SectionIntro({ eyebrow, title, description, align = "left" }) {
   return (
     <div className={`section__head${align === "center" ? " section__head--center" : ""}`}>
@@ -100,13 +102,92 @@ function SectionIntro({ eyebrow, title, description, align = "left" }) {
   );
 }
 
-function SiteNav({ isMenuOpen, isNavHidden, onToggleMenu, onMenuClick }) {
+function SiteNav() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavHidden, setIsNavHidden] = useState(false);
+  const [isMobileMenu, setIsMobileMenu] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return window.matchMedia(MOBILE_MENU_QUERY).matches;
+  });
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      const nearTop = y < 18;
+
+      if (nearTop) {
+        setIsNavHidden(false);
+      } else if (y > lastY + 6) {
+        setIsNavHidden(true);
+        setIsMenuOpen(false);
+      } else if (y < lastY - 6) {
+        setIsNavHidden(false);
+      }
+
+      lastY = y;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(MOBILE_MENU_QUERY);
+
+    const syncMenuMode = () => {
+      setIsMobileMenu(mediaQuery.matches);
+
+      if (!mediaQuery.matches) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    syncMenuMode();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncMenuMode);
+      return () => mediaQuery.removeEventListener("change", syncMenuMode);
+    }
+
+    mediaQuery.addListener(syncMenuMode);
+    return () => mediaQuery.removeListener(syncMenuMode);
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.overflow = isMenuOpen && isMobileMenu ? "hidden" : "";
+
+    return () => {
+      root.style.overflow = "";
+    };
+  }, [isMenuOpen, isMobileMenu]);
+
+  const handleMenuClick = (event) => {
+    if (event.target instanceof HTMLAnchorElement) {
+      setIsMenuOpen(false);
+    }
+  };
+
   return (
     <header className={`nav${isNavHidden ? " nav--hidden" : ""}`} role="banner">
       <div className="nav__inner">
         <a className="brand" href="#top" aria-label="Turquoise Steel Home">
           <span className="brand__mark" aria-hidden="true">
-            <img src="/images/band-logo.png" width="52" height="52" alt="" />
+            <img src="/images/band-logo.png" width="512" height="512" alt="" decoding="async" />
           </span>
           <span className="brand__text">
             <span className="brand__eyebrow">Desert blues from Navajo country</span>
@@ -120,7 +201,7 @@ function SiteNav({ isMenuOpen, isNavHidden, onToggleMenu, onMenuClick }) {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           aria-controls="navMenu"
           aria-expanded={isMenuOpen}
-          onClick={onToggleMenu}
+          onClick={() => setIsMenuOpen((value) => !value)}
         >
           <span className="nav__toggleBars" aria-hidden="true"></span>
         </button>
@@ -129,7 +210,7 @@ function SiteNav({ isMenuOpen, isNavHidden, onToggleMenu, onMenuClick }) {
           className={`nav__menu${isMenuOpen ? " is-open" : ""}`}
           id="navMenu"
           aria-label="Primary"
-          onClick={onMenuClick}
+          onClick={handleMenuClick}
         >
           {NAV_LINKS.map((link) => (
             <a key={`${link.href}-${link.label}`} className={link.className} href={link.href}>
@@ -204,6 +285,11 @@ function HeroSection() {
                   src="/images/homeland-poster.png"
                   alt="Turquoise Steel Homeland poster featuring a desert landscape, silver typography, and turquoise stone details."
                   className="posterCard__image"
+                  width="812"
+                  height="816"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                 />
               </div>
               <figcaption className="posterCard__meta">
@@ -223,6 +309,9 @@ function HeroSection() {
                   src="/images/band-logo.png"
                   alt="Turquoise Steel emblem with crossed hammers and feathers."
                   className="crestCard__logo"
+                  width="512"
+                  height="512"
+                  decoding="async"
                 />
               </div>
               <div className="crestCard__body">
@@ -258,12 +347,23 @@ function MusicSection() {
         <article className="panel panel--feature musicFeature">
           <div className="musicFeature__art">
             <div className="musicFeature__poster">
-              <img src="/images/homeland-poster.png" alt="Homeland poster art for Turquoise Steel." />
+              <img
+                src="/images/homeland-poster.png"
+                alt="Homeland poster art for Turquoise Steel."
+                width="812"
+                height="816"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div className="musicFeature__detail">
               <img
                 src="/images/background.jpg"
                 alt="Close-up of a guitar with turquoise and silver jewelry."
+                width="1440"
+                height="1920"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -501,7 +601,14 @@ function SubscribeSection() {
         <div className="cta">
           <div className="cta__copy">
             <div className="cta__crest" aria-hidden="true">
-              <img src="/images/band-logo.png" alt="" width="88" height="88" />
+              <img
+                src="/images/band-logo.png"
+                alt=""
+                width="512"
+                height="512"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
 
             <div>
@@ -656,79 +763,13 @@ function Footer() {
 }
 
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isNavHidden, setIsNavHidden] = useState(false);
-
-  useEffect(() => {
-    let lastY = window.scrollY;
-    let ticking = false;
-
-    const onScroll = () => {
-      const y = window.scrollY;
-      const nearTop = y < 18;
-
-      if (nearTop) {
-        setIsNavHidden(false);
-      } else if (y > lastY + 6) {
-        setIsNavHidden(true);
-        setIsMenuOpen(false);
-      } else if (y < lastY - 6) {
-        setIsNavHidden(false);
-      }
-
-      lastY = y;
-      ticking = false;
-    };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(onScroll);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.style.overflow = isMenuOpen && window.innerWidth <= 900 ? "hidden" : "";
-
-    return () => {
-      root.style.overflow = "";
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 900) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleMenuClick = (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
-      setIsMenuOpen(false);
-    }
-  };
-
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
 
-      <SiteNav
-        isMenuOpen={isMenuOpen}
-        isNavHidden={isNavHidden}
-        onToggleMenu={() => setIsMenuOpen((value) => !value)}
-        onMenuClick={handleMenuClick}
-      />
+      <SiteNav />
 
       <main id="main">
         <HeroSection />
