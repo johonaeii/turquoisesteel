@@ -827,6 +827,7 @@ section[id] {
 
 .grid--shows {
   grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  align-items: start;
 }
 
 .grid--booking {
@@ -1066,6 +1067,10 @@ section[id] {
   align-content: start;
 }
 
+.showsAside .p {
+  margin-top: 12px;
+}
+
 .showsPanel {
   min-height: 160px;
 }
@@ -1078,10 +1083,13 @@ section[id] {
   list-style: none;
 }
 
-.showsFallback {
+.recentShows {
   display: grid;
   gap: 16px;
-  align-content: start;
+}
+
+.recentShows .panel__actions {
+  margin-top: 4px;
 }
 
 .show {
@@ -1101,6 +1109,25 @@ section[id] {
 .show--status {
   grid-template-columns: 1fr;
   color: var(--muted);
+}
+
+.show--past {
+  grid-template-columns: minmax(170px, 0.72fr) minmax(0, 1fr);
+}
+
+.show--placeholder {
+  grid-template-columns: 1fr;
+  border-style: dashed;
+  background: transparent;
+  color: var(--copper);
+  font-weight: 700;
+}
+
+.show__meta {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .show__dateBlock,
