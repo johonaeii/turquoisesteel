@@ -5,14 +5,14 @@ const APPLE_MUSIC_URL = "https://music.apple.com/us/artist/turquoise-steel/17270
 const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@TurquoiseSteel";
 const YOUTUBE_LIVE_URL = "https://www.youtube.com/watch?v=DOsFYZJGd3w";
 const CONTACT_EMAIL = "turquoisesteel505@gmail.com";
+const BOOKING_HREF = "#booking";
 
 const NAV_LINKS = [
   { href: "#music", label: "Music", className: "nav__link" },
   { href: "#video", label: "Video", className: "nav__link" },
   { href: "#shows", label: "Shows", className: "nav__link" },
-  { href: "#booking", label: "Booking", className: "nav__link" },
   { href: "#contact", label: "Contact", className: "nav__link" },
-  { href: "#booking", label: "Book a Show", className: "nav__cta" }
+  { href: BOOKING_HREF, label: "Book a Show", className: "nav__cta" }
 ];
 
 const SOCIAL_LINKS = [
@@ -632,23 +632,17 @@ function ShowsSection() {
 
           <aside className="panel panel--accent showsAside">
             <p className="panel__eyebrow">Need more dates?</p>
-            <h3 className="h3">See the full calendar or reach out to book Turquoise Steel.</h3>
+            <h3 className="h3">Follow new dates or book Turquoise Steel.</h3>
             <p className="p p--muted">
-              Follow new dates, set reminders, and stay close to booking and announcement updates.
+              Follow on Bandsintown for show reminders and official tickets as new dates are announced.
             </p>
 
-            <div className="tagRow">
-              <span className="tag">Official tickets</span>
-              <span className="tag">Set reminders</span>
-              <span className="tag">Booking inquiries</span>
-            </div>
-
             <div className="panel__actions">
-              <a className="btn btn--primary" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
-                View full calendar
+              <a className="btn btn--ghost" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
+                Follow on Bandsintown
               </a>
-              <a className="btn btn--ghost" href="#contact">
-                Booking info
+              <a className="btn btn--primary" href={BOOKING_HREF}>
+                Book the Band
               </a>
             </div>
           </aside>
@@ -871,7 +865,7 @@ function Footer() {
         <div className="footer__links">
           <a href="#music">Music</a>
           <a href="#shows">Shows</a>
-          <a href="#booking">Booking</a>
+          <a href={BOOKING_HREF}>Booking</a>
           <a href="#contact">Contact</a>
         </div>
       </div>
