@@ -192,9 +192,14 @@
           linear-gradient(180deg, rgba(71, 61, 55, 0.28), rgba(15, 12, 10, 0.84));
       }
 
+      picture {
+        display: contents;
+      }
+
       .crest img {
-        width: 80px;
-        height: 80px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
       }
 
       .poster {
