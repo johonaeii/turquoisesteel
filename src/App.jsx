@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-const ARTIST_SPOTIFY_URL = "https://open.spotify.com/search/Turquoise%20Steel";
+const ARTIST_SPOTIFY_URL = "https://open.spotify.com/artist/4ULJRHYFwd02rdOecRAa00";
+const APPLE_MUSIC_URL = "https://music.apple.com/us/artist/turquoise-steel/1727025196";
+const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@TurquoiseSteel";
 const YOUTUBE_LIVE_URL = "https://www.youtube.com/watch?v=DOsFYZJGd3w";
 const CONTACT_EMAIL = "turquoisesteel505@gmail.com";
 
@@ -15,8 +17,9 @@ const NAV_LINKS = [
 
 const SOCIAL_LINKS = [
   { href: "https://www.instagram.com/turquoise_steel", label: "Instagram" },
-  { href: YOUTUBE_LIVE_URL, label: "YouTube" },
-  { href: ARTIST_SPOTIFY_URL, label: "Spotify" }
+  { href: YOUTUBE_CHANNEL_URL, label: "YouTube" },
+  { href: ARTIST_SPOTIFY_URL, label: "Spotify" },
+  { href: APPLE_MUSIC_URL, label: "Apple Music" }
 ];
 
 const BANDSINTOWN_URL = "https://www.bandsintown.com/a/15599939-turquoise-steel";
