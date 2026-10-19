@@ -135,6 +135,20 @@ function normalizeBandsintownEvent(event) {
   };
 }
 
+const POSTER_WEBP = "/images/homeland-poster-480.webp 480w, /images/homeland-poster-812.webp 812w";
+const LOGO_WEBP = "/images/band-logo-160.webp";
+const LOGO_SMALL = "/images/band-logo-160.png";
+
+// WebP copies with the original file as the fallback <img>.
+function Picture({ webp, sizes, ...imgProps }) {
+  return (
+    <picture>
+      <source type="image/webp" srcSet={webp} sizes={sizes} />
+      <img {...imgProps} />
+    </picture>
+  );
+}
+
 const RECENT_SHOWS_LIMIT = 8;
 const ARTIST_NAME = "Turquoise Steel";
 
@@ -399,7 +413,7 @@ function SiteNav() {
       <div className="nav__inner">
         <a className="brand" href="#top" aria-label="Turquoise Steel Home">
           <span className="brand__mark" aria-hidden="true">
-            <img src="/images/band-logo.png" width="512" height="512" alt="" decoding="async" />
+            <Picture webp={LOGO_WEBP} src={LOGO_SMALL} width="512" height="512" alt="" decoding="async" />
           </span>
           <span className="brand__text">
             <span className="brand__eyebrow">Desert blues from Navajo country</span>
@@ -493,14 +507,16 @@ function HeroSection() {
           <div className="hero__stack">
             <figure className="posterCard">
               <div className="posterCard__frame">
-                <img
+                <Picture
+                  webp={POSTER_WEBP}
+                  sizes="(max-width: 900px) min(100vw, 720px), 420px"
                   src="/images/homeland-poster.png"
                   alt="Turquoise Steel Homeland poster featuring a desert landscape, silver typography, and turquoise stone details."
                   className="posterCard__image"
                   width="812"
                   height="816"
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                   decoding="async"
                 />
               </div>
@@ -517,8 +533,9 @@ function HeroSection() {
 
             <article className="crestCard">
               <div className="crestCard__mark">
-                <img
-                  src="/images/band-logo.png"
+                <Picture
+                  webp={LOGO_WEBP}
+                  src={LOGO_SMALL}
                   alt="Turquoise Steel emblem with crossed hammers and feathers."
                   className="crestCard__logo"
                   width="512"
@@ -559,7 +576,9 @@ function MusicSection() {
         <article className="panel panel--feature musicFeature">
           <div className="musicFeature__art">
             <div className="musicFeature__poster">
-              <img
+              <Picture
+                webp={POSTER_WEBP}
+                sizes="(max-width: 900px) 420px, 360px"
                 src="/images/homeland-poster.png"
                 alt="Homeland poster art for Turquoise Steel."
                 width="812"
@@ -569,7 +588,8 @@ function MusicSection() {
               />
             </div>
             <div className="musicFeature__detail">
-              <img
+              <Picture
+                webp="/images/background-440.webp"
                 src="/images/background.jpg"
                 alt="Close-up of a guitar with turquoise and silver jewelry."
                 width="1440"
@@ -783,8 +803,9 @@ function SubscribeSection() {
         <div className="cta">
           <div className="cta__copy">
             <div className="cta__crest" aria-hidden="true">
-              <img
-                src="/images/band-logo.png"
+              <Picture
+                webp={LOGO_WEBP}
+                src={LOGO_SMALL}
                 alt=""
                 width="512"
                 height="512"

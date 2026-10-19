@@ -285,24 +285,34 @@
 
         <aside class="art" aria-hidden="true">
           <div class="crest">
-            <img
-              src="/images/band-logo.png"
-              alt=""
-              width="512"
-              height="512"
-              loading="eager"
-              decoding="async"
-            />
+            <picture>
+              <source type="image/webp" srcset="/images/band-logo-160.webp" />
+              <img
+                src="/images/band-logo-160.png"
+                alt=""
+                width="512"
+                height="512"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </div>
           <div class="poster">
-            <img
-              src="/images/homeland-poster.png"
-              alt=""
-              width="812"
-              height="816"
-              loading="eager"
-              decoding="async"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="/images/homeland-poster-480.webp 480w, /images/homeland-poster-812.webp 812w"
+                sizes="(max-width: 760px) 100vw, 400px"
+              />
+              <img
+                src="/images/homeland-poster.png"
+                alt=""
+                width="812"
+                height="816"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </div>
         </aside>
       </div>
