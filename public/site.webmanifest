@@ -1,0 +1,12 @@
+{
+  "name": "Turquoise Steel",
+  "short_name": "Turquoise Steel",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0d0907",
+  "theme_color": "#0d0907",
+  "icons": [
+    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/images/band-logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
