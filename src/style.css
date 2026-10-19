@@ -383,18 +383,19 @@ section[id] {
 .hero__content {
   position: relative;
   z-index: 2;
-  padding: clamp(40px, 7vw, 78px) 0 clamp(46px, 8vw, 84px);
+  padding: clamp(24px, 4vw, 48px) 0 clamp(46px, 8vw, 84px);
 }
 
 .hero__layout {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
   gap: clamp(28px, 3.4vw, 48px);
-  align-items: end;
+  align-items: start;
 }
 
 .hero__copy {
   max-width: 670px;
+  container-type: inline-size;
 }
 
 .kicker,
@@ -451,10 +452,13 @@ section[id] {
   transform: rotate(-3deg);
 }
 
+/* Sized to the hero column (cqi) so "TURQUOISE" never overflows the h1 box,
+   where background-clip text would render the overflow invisible. */
 .title {
   margin: 20px 0 0;
-  max-width: 11ch;
-  font-size: clamp(3.7rem, 8.5vw, 6.7rem);
+  max-width: 100%;
+  font-size: clamp(2.35rem, 7vw, 5.6rem);
+  font-size: clamp(2.35rem, 13.5cqi, 6.7rem);
   line-height: 0.86;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1535,11 +1539,6 @@ section[id] {
     font-size: clamp(1.28rem, 5.4vw, 1.9rem);
   }
 
-  .title {
-    max-width: none;
-    font-size: clamp(3.05rem, 13vw, 5rem);
-  }
-
   .subtitle {
     margin-top: 16px;
   }
@@ -1654,10 +1653,6 @@ section[id] {
     font-size: 11px;
   }
 
-  .title {
-    font-size: clamp(2.7rem, 15vw, 4.2rem);
-  }
-
   .subtitle,
   .p,
   .tag,
@@ -1708,10 +1703,6 @@ section[id] {
 }
 
 @media (max-width: 420px) {
-  .title {
-    font-size: clamp(2.35rem, 14vw, 3.4rem);
-  }
-
   .subtitle,
   .p,
   .tag,
