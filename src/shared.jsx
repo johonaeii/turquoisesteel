@@ -160,12 +160,12 @@ export function useRecentShows(limit = RECENT_SHOWS_LIMIT) {
   return mergePastShows(localPastShows, bandsintownShows).slice(0, limit);
 }
 
-export function RecentlyPlayed({ limit }) {
+export function RecentlyPlayed({ limit, ctaHref = BOOKING_HREF, heading = "Recently played" }) {
   const shows = useRecentShows(limit);
 
   return (
     <div className="recentShows">
-      <h3 className="h3">Recently played</h3>
+      {heading ? <h3 className="h3">{heading}</h3> : null}
       <ul className="shows" aria-label="Recently played shows">
         {shows.map((show) => (
           <li key={`${show.date}-${show.event}`} className="show show--past">
@@ -185,7 +185,7 @@ export function RecentlyPlayed({ limit }) {
       </ul>
 
       <div className="panel__actions">
-        <a className="btn btn--primary" href={BOOKING_HREF}>
+        <a className="btn btn--primary" href={ctaHref}>
           Book Turquoise Steel for your event
         </a>
       </div>

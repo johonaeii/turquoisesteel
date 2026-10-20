@@ -1264,6 +1264,7 @@ section[id] {
 
 .cta__form input,
 .field input,
+.field select,
 .field textarea {
   width: 100%;
   border: 1px solid rgba(183, 173, 160, 0.18);
@@ -1284,6 +1285,7 @@ section[id] {
 
 .cta__form input:focus,
 .field input:focus,
+.field select:focus,
 .field textarea:focus {
   border-color: rgba(127, 169, 163, 0.54);
   box-shadow:
@@ -1399,6 +1401,182 @@ section[id] {
 
 .footer__links a:hover {
   color: var(--text);
+}
+
+/* Booking / press kit page */
+.section.epkHero {
+  padding-top: calc(94px + clamp(24px, 4vw, 48px));
+}
+
+.grid--start {
+  align-items: start;
+}
+
+.epkHero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(24px, 3.4vw, 48px);
+  align-items: center;
+}
+
+.epkHero__title {
+  margin-top: 4px;
+}
+
+.videoFacade {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(220, 205, 186, 0.08);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.videoFacade img,
+.videoFacade .embed__frame {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.videoFacade__play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 72px;
+  height: 72px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(244, 239, 233, 0.96), rgba(127, 169, 163, 0.94));
+  box-shadow: var(--shadow-md);
+}
+
+.videoFacade__play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent #16100c;
+}
+
+.videoFacade--placeholder {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  border-style: dashed;
+  cursor: default;
+  text-align: center;
+}
+
+.needs,
+.videoFacade--placeholder span {
+  color: var(--copper);
+  font-weight: 700;
+}
+
+.factGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+
+.factGrid__item,
+.pressList__item {
+  padding: 16px 18px;
+  border: 1px solid rgba(183, 173, 160, 0.14);
+  border-radius: 14px;
+  background:
+    linear-gradient(90deg, rgba(127, 169, 163, 0.08), transparent 18%),
+    linear-gradient(180deg, rgba(33, 26, 22, 0.94), rgba(17, 13, 11, 0.96));
+}
+
+.factGrid dd {
+  margin: 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.pressList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pressList__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pressList__label {
+  font-weight: 700;
+}
+
+.pressList__format {
+  margin-left: 6px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.bio__text {
+  margin-top: 14px;
+}
+
+.form--booking {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field--full {
+  grid-column: 1 / -1;
+}
+
+.field select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--bone) 50%),
+    linear-gradient(135deg, var(--bone) 50%, transparent 50%),
+    linear-gradient(180deg, rgba(31, 24, 20, 0.92), rgba(16, 13, 11, 0.96));
+  background-position:
+    calc(100% - 22px) 52%,
+    calc(100% - 16px) 52%,
+    0 0;
+  background-size: 6px 6px, 6px 6px, 100% 100%;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+
+.field select option {
+  background: #1a1411;
+  color: var(--text);
+}
+
+@media (max-width: 900px) {
+  .epkHero__layout,
+  .factGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .form--booking {
+    grid-template-columns: 1fr;
+  }
+
+  .section.epkHero {
+    padding-top: calc(84px + 24px);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
