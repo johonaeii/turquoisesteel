@@ -4,14 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thanks | Turquoise Steel</title>
-    <link rel="icon" type="image/png" href="/images/favicon-64.png" />
+    <meta name="description" content="Thanks for reaching out to Turquoise Steel, a Navajo family blues-rock band from Albuquerque." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0d0907" />
+    <link rel="canonical" href="https://turquoisesteel.live/thank-you.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Turquoise Steel" />
+    <meta property="og:url" content="https://turquoisesteel.live/thank-you.html" />
+    <meta property="og:title" content="Thanks | Turquoise Steel" />
+    <meta property="og:description" content="Thanks for reaching out to Turquoise Steel." />
+    <!-- [[NEEDS: share image]] add og:image / twitter:image once /images/share.jpg exists -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Thanks | Turquoise Steel" />
+    <meta name="twitter:description" content="Thanks for reaching out to Turquoise Steel." />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon-64.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <style>
       :root {
         --bg: #0d0907;
         --panel: rgba(28, 22, 19, 0.94);
         --stroke: rgba(183, 173, 160, 0.18);
         --text: #ebe1d2;
-        --muted: rgba(220, 205, 186, 0.72);
+        --muted: rgba(220, 205, 186, 0.8);
         --sand: #b18b5d;
         --bone: #dccdba;
         --turquoise: #7fa9a3;
@@ -174,9 +192,14 @@
           linear-gradient(180deg, rgba(71, 61, 55, 0.28), rgba(15, 12, 10, 0.84));
       }
 
+      picture {
+        display: contents;
+      }
+
       .crest img {
-        width: 80px;
-        height: 80px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
       }
 
       .poster {
@@ -252,11 +275,12 @@
     <main>
       <div class="card">
         <div class="copyWrap">
-          <p class="eyebrow">Message received</p>
+          <p class="eyebrow">Received</p>
           <p class="stamp">Thanks from Turquoise Steel.</p>
-          <h1>Your message is on its way.</h1>
+          <h1>You&rsquo;re all set.</h1>
           <p class="copy">
-            Your note has been sent to Turquoise Steel. A member of the band will follow up as soon as possible.
+            Your submission reached Turquoise Steel. If you signed up for updates, you&rsquo;re on the list. If you
+            sent a message, a member of the band will follow up as soon as possible.
           </p>
           <div class="actions">
             <a class="primary" href="/">Back to homepage</a>
@@ -266,24 +290,34 @@
 
         <aside class="art" aria-hidden="true">
           <div class="crest">
-            <img
-              src="/images/band-logo.png"
-              alt=""
-              width="512"
-              height="512"
-              loading="eager"
-              decoding="async"
-            />
+            <picture>
+              <source type="image/webp" srcset="/images/band-logo-160.webp" />
+              <img
+                src="/images/band-logo-160.png"
+                alt=""
+                width="512"
+                height="512"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </div>
           <div class="poster">
-            <img
-              src="/images/homeland-poster.png"
-              alt=""
-              width="812"
-              height="816"
-              loading="eager"
-              decoding="async"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="/images/homeland-poster-480.webp 480w, /images/homeland-poster-812.webp 812w"
+                sizes="(max-width: 760px) 100vw, 400px"
+              />
+              <img
+                src="/images/homeland-poster.png"
+                alt=""
+                width="812"
+                height="816"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </div>
         </aside>
       </div>

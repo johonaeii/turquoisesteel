@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
+import localPastShows from "../data/past-shows.json";
 
-const ARTIST_SPOTIFY_URL = "https://open.spotify.com/search/Turquoise%20Steel";
+const ARTIST_SPOTIFY_URL = "https://open.spotify.com/artist/4ULJRHYFwd02rdOecRAa00";
+const APPLE_MUSIC_URL = "https://music.apple.com/us/artist/turquoise-steel/1727025196";
+const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@TurquoiseSteel";
 const YOUTUBE_LIVE_URL = "https://www.youtube.com/watch?v=DOsFYZJGd3w";
 const CONTACT_EMAIL = "turquoisesteel505@gmail.com";
+const BOOKING_HREF = "#booking";
 
 const NAV_LINKS = [
   { href: "#music", label: "Music", className: "nav__link" },
   { href: "#video", label: "Video", className: "nav__link" },
   { href: "#shows", label: "Shows", className: "nav__link" },
-  { href: "#booking", label: "Booking", className: "nav__link" },
   { href: "#contact", label: "Contact", className: "nav__link" },
-  { href: "#booking", label: "Book a Show", className: "nav__cta" }
+  { href: BOOKING_HREF, label: "Book a Show", className: "nav__cta" }
 ];
 
 const SOCIAL_LINKS = [
   { href: "https://www.instagram.com/turquoise_steel", label: "Instagram" },
-  { href: YOUTUBE_LIVE_URL, label: "YouTube" },
-  { href: ARTIST_SPOTIFY_URL, label: "Spotify" }
+  { href: YOUTUBE_CHANNEL_URL, label: "YouTube" },
+  { href: ARTIST_SPOTIFY_URL, label: "Spotify" },
+  { href: APPLE_MUSIC_URL, label: "Apple Music" }
 ];
 
 const BANDSINTOWN_URL = "https://www.bandsintown.com/a/15599939-turquoise-steel";
@@ -84,12 +88,9 @@ const DAY_FORMATTER = new Intl.DateTimeFormat("en-US", {
   day: "numeric"
 });
 
+// Fixed to the production domain: Bandsintown returns no events for some app ids (e.g. js_localhost).
 function getBandsintownAppId() {
-  if (typeof window === "undefined" || !window.location.hostname) {
-    return "js_turquoisesteel.com";
-  }
-
-  return `js_${window.location.hostname}`;
+  return "js_turquoisesteel.live";
 }
 
 function parseDateOnly(value) {
@@ -134,6 +135,124 @@ function normalizeBandsintownEvent(event) {
   };
 }
 
+const POSTER_WEBP = "/images/homeland-poster-480.webp 480w, /images/homeland-poster-812.webp 812w";
+const LOGO_WEBP = "/images/band-logo-160.webp";
+const LOGO_SMALL = "/images/band-logo-160.png";
+
+// WebP copies with the original file as the fallback <img>.
+function Picture({ webp, sizes, ...imgProps }) {
+  return (
+    <picture>
+      <source type="image/webp" srcSet={webp} sizes={sizes} />
+      <img {...imgProps} />
+    </picture>
+  );
+}
+
+const RECENT_SHOWS_LIMIT = 8;
+const ARTIST_NAME = "Turquoise Steel";
+
+async function fetchBandsintownEvents(date, signal) {
+  const params = new URLSearchParams({ app_id: getBandsintownAppId(), date });
+  const response = await fetch(`${BANDSINTOWN_API_BASE}?${params.toString()}`, {
+    headers: { Accept: "application/json" },
+    signal
+  });
+
+  if (!response.ok) {
+    throw new Error(`Bandsintown returned ${response.status}`);
+  }
+
+  const data = await response.json();
+  return Array.isArray(data) ? data : [];
+}
+
+function squashName(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+// The band enters the event name in Bandsintown's venue field, so it is used as the event title.
+function normalizePastBandsintownEvent(event) {
+  const eventName = (event.title || event.venue?.name || `${ARTIST_NAME} live`).replace(/\s+/g, " ").trim();
+  const coBill = (event.lineup || []).filter(
+    (artist) => artist !== ARTIST_NAME && !squashName(eventName).includes(squashName(artist))
+  );
+
+  return {
+    date: (event.starts_at || event.datetime).slice(0, 10),
+    event: eventName,
+    venue: "",
+    city: event.venue?.location || [event.venue?.city, event.venue?.region].filter(Boolean).join(", "),
+    coBill
+  };
+}
+
+// Local entries win over Bandsintown entries on the same date (they carry venue details).
+function mergePastShows(localShows, bandsintownShows) {
+  const byDate = new Map();
+  bandsintownShows.forEach((show) => byDate.set(show.date, show));
+  localShows.forEach((show) => byDate.set(show.date, { coBill: [], ...show }));
+
+  return [...byDate.values()].sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function useRecentShows(limit = RECENT_SHOWS_LIMIT) {
+  const [bandsintownShows, setBandsintownShows] = useState([]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetchBandsintownEvents("past", controller.signal)
+      .then((events) => {
+        if (!controller.signal.aborted) {
+          setBandsintownShows(events.map(normalizePastBandsintownEvent));
+        }
+      })
+      .catch((error) => {
+        if (!controller.signal.aborted) {
+          console.error("Unable to load past Bandsintown dates", error);
+        }
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  return mergePastShows(localPastShows, bandsintownShows).slice(0, limit);
+}
+
+function RecentlyPlayed({ limit }) {
+  const shows = useRecentShows(limit);
+
+  return (
+    <div className="recentShows">
+      <h3 className="h3">Recently played</h3>
+      <ul className="shows" aria-label="Recently played shows">
+        {shows.map((show) => (
+          <li key={`${show.date}-${show.event}`} className="show show--past">
+            <div className="show__dateBlock">
+              <span className="show__date">{formatDateRange(show.date)}</span>
+              <span className="show__location">{show.city}</span>
+            </div>
+
+            <div className="show__details">
+              <span className="show__venue">{show.event}</span>
+              {show.venue ? <span className="show__meta">{show.venue}</span> : null}
+              {show.coBill.length ? <span className="show__meta">With {show.coBill.join(", ")}</span> : null}
+            </div>
+          </li>
+        ))}
+        <li className="show show--placeholder">[[NEEDS: more past shows]]</li>
+      </ul>
+
+      <div className="panel__actions">
+        <a className="btn btn--primary" href={BOOKING_HREF}>
+          Book Turquoise Steel for your event
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function SectionIntro({ eyebrow, title, description, align = "left" }) {
   return (
     <div className={`section__head${align === "center" ? " section__head--center" : ""}`}>
@@ -150,24 +269,11 @@ function BandsintownTourDates() {
 
   useEffect(() => {
     const controller = new AbortController();
-    const params = new URLSearchParams({
-      app_id: getBandsintownAppId(),
-      date: "upcoming"
-    });
 
     async function loadTourDates() {
       try {
-        const response = await fetch(`${BANDSINTOWN_API_BASE}?${params.toString()}`, {
-          headers: { Accept: "application/json" },
-          signal: controller.signal
-        });
-
-        if (!response.ok) {
-          throw new Error(`Bandsintown returned ${response.status}`);
-        }
-
-        const data = await response.json();
-        const normalizedShows = Array.isArray(data) ? data.map(normalizeBandsintownEvent) : [];
+        const data = await fetchBandsintownEvents("upcoming", controller.signal);
+        const normalizedShows = data.map(normalizeBandsintownEvent);
 
         if (!controller.signal.aborted) {
           setShows(normalizedShows);
@@ -194,26 +300,8 @@ function BandsintownTourDates() {
     );
   }
 
-  if (status === "error") {
-    return (
-      <div className="showsFallback" aria-live="polite">
-        <p className="p p--muted">Tour dates could not load from Bandsintown right now.</p>
-        <a className="btn btn--small btn--ghost" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
-          View full calendar
-        </a>
-      </div>
-    );
-  }
-
-  if (shows.length === 0) {
-    return (
-      <div className="showsFallback" aria-live="polite">
-        <p className="p p--muted">No upcoming Turquoise Steel dates are listed on Bandsintown right now.</p>
-        <a className="btn btn--small btn--ghost" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
-          Track future shows
-        </a>
-      </div>
-    );
+  if (status === "error" || shows.length === 0) {
+    return <RecentlyPlayed />;
   }
 
   return (
@@ -325,7 +413,7 @@ function SiteNav() {
       <div className="nav__inner">
         <a className="brand" href="#top" aria-label="Turquoise Steel Home">
           <span className="brand__mark" aria-hidden="true">
-            <img src="/images/band-logo.png" width="512" height="512" alt="" decoding="async" />
+            <Picture webp={LOGO_WEBP} src={LOGO_SMALL} width="512" height="512" alt="" decoding="async" />
           </span>
           <span className="brand__text">
             <span className="brand__eyebrow">Desert blues from Navajo country</span>
@@ -419,14 +507,16 @@ function HeroSection() {
           <div className="hero__stack">
             <figure className="posterCard">
               <div className="posterCard__frame">
-                <img
+                <Picture
+                  webp={POSTER_WEBP}
+                  sizes="(max-width: 900px) min(100vw, 720px), 420px"
                   src="/images/homeland-poster.png"
                   alt="Turquoise Steel Homeland poster featuring a desert landscape, silver typography, and turquoise stone details."
                   className="posterCard__image"
                   width="812"
                   height="816"
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                   decoding="async"
                 />
               </div>
@@ -443,8 +533,9 @@ function HeroSection() {
 
             <article className="crestCard">
               <div className="crestCard__mark">
-                <img
-                  src="/images/band-logo.png"
+                <Picture
+                  webp={LOGO_WEBP}
+                  src={LOGO_SMALL}
                   alt="Turquoise Steel emblem with crossed hammers and feathers."
                   className="crestCard__logo"
                   width="512"
@@ -485,7 +576,9 @@ function MusicSection() {
         <article className="panel panel--feature musicFeature">
           <div className="musicFeature__art">
             <div className="musicFeature__poster">
-              <img
+              <Picture
+                webp={POSTER_WEBP}
+                sizes="(max-width: 900px) 420px, 360px"
                 src="/images/homeland-poster.png"
                 alt="Homeland poster art for Turquoise Steel."
                 width="812"
@@ -495,7 +588,8 @@ function MusicSection() {
               />
             </div>
             <div className="musicFeature__detail">
-              <img
+              <Picture
+                webp="/images/background-440.webp"
                 src="/images/background.jpg"
                 alt="Close-up of a guitar with turquoise and silver jewelry."
                 width="1440"
@@ -629,23 +723,17 @@ function ShowsSection() {
 
           <aside className="panel panel--accent showsAside">
             <p className="panel__eyebrow">Need more dates?</p>
-            <h3 className="h3">See the full calendar or reach out to book Turquoise Steel.</h3>
+            <h3 className="h3">Follow new dates or book Turquoise Steel.</h3>
             <p className="p p--muted">
-              Follow new dates, set reminders, and stay close to booking and announcement updates.
+              Follow on Bandsintown for show reminders and official tickets as new dates are announced.
             </p>
 
-            <div className="tagRow">
-              <span className="tag">Official tickets</span>
-              <span className="tag">Set reminders</span>
-              <span className="tag">Booking inquiries</span>
-            </div>
-
             <div className="panel__actions">
-              <a className="btn btn--primary" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
-                View full calendar
+              <a className="btn btn--ghost" href={BANDSINTOWN_URL} target="_blank" rel="noopener noreferrer">
+                Follow on Bandsintown
               </a>
-              <a className="btn btn--ghost" href="#contact">
-                Booking info
+              <a className="btn btn--primary" href={BOOKING_HREF}>
+                Book the Band
               </a>
             </div>
           </aside>
@@ -715,8 +803,9 @@ function SubscribeSection() {
         <div className="cta">
           <div className="cta__copy">
             <div className="cta__crest" aria-hidden="true">
-              <img
-                src="/images/band-logo.png"
+              <Picture
+                webp={LOGO_WEBP}
+                src={LOGO_SMALL}
                 alt=""
                 width="512"
                 height="512"
@@ -868,7 +957,7 @@ function Footer() {
         <div className="footer__links">
           <a href="#music">Music</a>
           <a href="#shows">Shows</a>
-          <a href="#booking">Booking</a>
+          <a href={BOOKING_HREF}>Booking</a>
           <a href="#contact">Contact</a>
         </div>
       </div>

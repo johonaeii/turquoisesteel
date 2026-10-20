@@ -16,8 +16,9 @@
   --bone: #dccdba;
   --copper: #c97927;
   --text: #ebe1d2;
-  --muted: rgba(220, 205, 186, 0.72);
-  --muted-strong: rgba(235, 225, 210, 0.84);
+  --muted: rgba(220, 205, 186, 0.8);
+  --muted-strong: rgba(235, 225, 210, 0.9);
+  --placeholder: rgba(220, 205, 186, 0.62);
   --line: rgba(183, 173, 160, 0.18);
   --line-strong: rgba(220, 205, 186, 0.28);
   --shadow-xl: 0 28px 72px rgba(0, 0, 0, 0.42);
@@ -91,6 +92,10 @@ img {
   height: auto;
 }
 
+picture {
+  display: contents;
+}
+
 button,
 input,
 textarea {
@@ -100,7 +105,10 @@ textarea {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
   outline: 2px solid var(--bone);
   outline-offset: 3px;
 }
@@ -174,6 +182,11 @@ section[id] {
 
 .nav--hidden {
   transform: translateY(-110%);
+}
+
+/* Keep the nav visible while a keyboard user is inside it. */
+.nav--hidden:focus-within {
+  transform: translateY(0);
 }
 
 .nav__inner {
@@ -383,18 +396,19 @@ section[id] {
 .hero__content {
   position: relative;
   z-index: 2;
-  padding: clamp(40px, 7vw, 78px) 0 clamp(46px, 8vw, 84px);
+  padding: clamp(24px, 4vw, 48px) 0 clamp(46px, 8vw, 84px);
 }
 
 .hero__layout {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
   gap: clamp(28px, 3.4vw, 48px);
-  align-items: end;
+  align-items: start;
 }
 
 .hero__copy {
   max-width: 670px;
+  container-type: inline-size;
 }
 
 .kicker,
@@ -451,10 +465,13 @@ section[id] {
   transform: rotate(-3deg);
 }
 
+/* Sized to the hero column (cqi) so "TURQUOISE" never overflows the h1 box,
+   where background-clip text would render the overflow invisible. */
 .title {
   margin: 20px 0 0;
-  max-width: 11ch;
-  font-size: clamp(3.7rem, 8.5vw, 6.7rem);
+  max-width: 100%;
+  font-size: clamp(2.35rem, 7vw, 5.6rem);
+  font-size: clamp(2.35rem, 13.5cqi, 6.7rem);
   line-height: 0.86;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -823,6 +840,7 @@ section[id] {
 
 .grid--shows {
   grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  align-items: start;
 }
 
 .grid--booking {
@@ -1062,6 +1080,10 @@ section[id] {
   align-content: start;
 }
 
+.showsAside .p {
+  margin-top: 12px;
+}
+
 .showsPanel {
   min-height: 160px;
 }
@@ -1074,10 +1096,13 @@ section[id] {
   list-style: none;
 }
 
-.showsFallback {
+.recentShows {
   display: grid;
   gap: 16px;
-  align-content: start;
+}
+
+.recentShows .panel__actions {
+  margin-top: 4px;
 }
 
 .show {
@@ -1097,6 +1122,25 @@ section[id] {
 .show--status {
   grid-template-columns: 1fr;
   color: var(--muted);
+}
+
+.show--past {
+  grid-template-columns: minmax(170px, 0.72fr) minmax(0, 1fr);
+}
+
+.show--placeholder {
+  grid-template-columns: 1fr;
+  border-style: dashed;
+  background: transparent;
+  color: var(--copper);
+  font-weight: 700;
+}
+
+.show__meta {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .show__dateBlock,
@@ -1235,7 +1279,7 @@ section[id] {
 .cta__form input::placeholder,
 .field input::placeholder,
 .field textarea::placeholder {
-  color: rgba(220, 205, 186, 0.42);
+  color: var(--placeholder);
 }
 
 .cta__form input:focus,
@@ -1535,11 +1579,6 @@ section[id] {
     font-size: clamp(1.28rem, 5.4vw, 1.9rem);
   }
 
-  .title {
-    max-width: none;
-    font-size: clamp(3.05rem, 13vw, 5rem);
-  }
-
   .subtitle {
     margin-top: 16px;
   }
@@ -1654,10 +1693,6 @@ section[id] {
     font-size: 11px;
   }
 
-  .title {
-    font-size: clamp(2.7rem, 15vw, 4.2rem);
-  }
-
   .subtitle,
   .p,
   .tag,
@@ -1708,10 +1743,6 @@ section[id] {
 }
 
 @media (max-width: 420px) {
-  .title {
-    font-size: clamp(2.35rem, 14vw, 3.4rem);
-  }
-
   .subtitle,
   .p,
   .tag,

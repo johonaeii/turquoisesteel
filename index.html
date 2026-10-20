@@ -8,16 +8,67 @@
       content="Turquoise Steel is a Navajo family blues-rock band from Albuquerque bringing blues, soul, and Southwest storytelling to live stages across the region."
     />
     <meta name="theme-color" content="#0d0907" />
-    <title>Turquoise Steel | Desert Blues from Navajo Country</title>
+    <title>Turquoise Steel | Navajo Family Blues-Rock Band from Albuquerque</title>
+    <link rel="canonical" href="https://turquoisesteel.live/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Turquoise Steel" />
+    <meta property="og:url" content="https://turquoisesteel.live/" />
+    <meta property="og:title" content="Turquoise Steel | Navajo Family Blues-Rock Band from Albuquerque" />
+    <meta
+      property="og:description"
+      content="Blues, rock, soul, and Southwest storytelling for festivals, listening rooms, community stages, and late-night sets. Book Turquoise Steel."
+    />
+    <!-- [[NEEDS: share image]] 1200x630 JPG at /images/share.jpg, then add:
+         <meta property="og:image" content="https://turquoisesteel.live/images/share.jpg" />
+         <meta property="og:image:width" content="1200" /> <meta property="og:image:height" content="630" />
+         <meta name="twitter:image" content="https://turquoisesteel.live/images/share.jpg" />
+         and change twitter:card to summary_large_image -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Turquoise Steel | Navajo Family Blues-Rock Band from Albuquerque" />
+    <meta
+      name="twitter:description"
+      content="Blues, rock, soul, and Southwest storytelling for festivals, listening rooms, community stages, and late-night sets. Book Turquoise Steel."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MusicGroup",
+        "name": "Turquoise Steel",
+        "url": "https://turquoisesteel.live/",
+        "description": "Turquoise Steel is a Navajo family blues-rock band from Albuquerque bringing blues, soul, and Southwest storytelling to live stages across the region.",
+        "genre": ["Blues rock", "Blues", "Rock", "Soul"],
+        "logo": "https://turquoisesteel.live/images/band-logo.png",
+        "image": "https://turquoisesteel.live/images/band-logo.png",
+        "location": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Albuquerque",
+            "addressRegion": "NM",
+            "addressCountry": "US"
+          }
+        },
+        "sameAs": [
+          "https://www.instagram.com/turquoise_steel",
+          "https://www.youtube.com/@TurquoiseSteel",
+          "https://open.spotify.com/artist/4ULJRHYFwd02rdOecRAa00",
+          "https://music.apple.com/us/artist/turquoise-steel/1727025196",
+          "https://www.bandsintown.com/a/15599939-turquoise-steel"
+        ]
+      }
+    </script>
     <link rel="dns-prefetch" href="https://open.spotify.com" />
     <link rel="dns-prefetch" href="https://www.youtube.com" />
     <link rel="dns-prefetch" href="https://rest.bandsintown.com" />
     <link rel="dns-prefetch" href="https://www.bandsintown.com" />
-    <link rel="preconnect" href="https://open.spotify.com" />
-    <link rel="preconnect" href="https://www.youtube.com" />
-    <link rel="preconnect" href="https://rest.bandsintown.com" />
-    <link rel="preconnect" href="https://www.bandsintown.com" />
-    <link rel="icon" type="image/png" href="/images/favicon-64.png" />
+    <link rel="preconnect" href="https://rest.bandsintown.com" crossorigin />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon-64.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
   </head>
   <body>
     <form name="newsletter" method="post" data-netlify="true" netlify-honeypot="bot-field" hidden>
