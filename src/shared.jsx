@@ -6,13 +6,13 @@ export const APPLE_MUSIC_URL = "https://music.apple.com/us/artist/turquoise-stee
 export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@TurquoiseSteel";
 export const YOUTUBE_LIVE_URL = "https://www.youtube.com/watch?v=DOsFYZJGd3w";
 export const CONTACT_EMAIL = "turquoisesteel505@gmail.com";
-export const BOOKING_HREF = "#booking";
+export const BOOKING_HREF = "/booking/";
 
 export const NAV_LINKS = [
-  { href: "#music", label: "Music", className: "nav__link" },
-  { href: "#video", label: "Video", className: "nav__link" },
-  { href: "#shows", label: "Shows", className: "nav__link" },
-  { href: "#contact", label: "Contact", className: "nav__link" },
+  { href: "/#music", label: "Music", className: "nav__link" },
+  { href: "/#video", label: "Video", className: "nav__link" },
+  { href: "/#shows", label: "Shows", className: "nav__link" },
+  { href: "/#contact", label: "Contact", className: "nav__link" },
   { href: BOOKING_HREF, label: "Book a Show", className: "nav__cta" }
 ];
 
@@ -286,7 +286,7 @@ export function SiteNav() {
   return (
     <header className={`nav${isNavHidden ? " nav--hidden" : ""}`} role="banner">
       <div className="nav__inner">
-        <a className="brand" href="#top" aria-label="Turquoise Steel Home">
+        <a className="brand" href="/#top" aria-label="Turquoise Steel Home">
           <span className="brand__mark" aria-hidden="true">
             <Picture webp={LOGO_WEBP} src={LOGO_SMALL} width="512" height="512" alt="" decoding="async" />
           </span>
@@ -338,10 +338,10 @@ export function Footer() {
         </div>
 
         <div className="footer__links">
-          <a href="#music">Music</a>
-          <a href="#shows">Shows</a>
+          <a href="/#music">Music</a>
+          <a href="/#shows">Shows</a>
           <a href={BOOKING_HREF}>Booking</a>
-          <a href="#contact">Contact</a>
+          <a href="/#contact">Contact</a>
         </div>
       </div>
     </footer>

@@ -476,7 +476,7 @@ function BookingSection() {
             </div>
 
             <div className="panel__actions">
-              <a className="btn btn--primary" href="#contact">
+              <a className="btn btn--primary" href={BOOKING_HREF}>
                 Book the band
               </a>
               <a className="btn btn--ghost" href={`mailto:${CONTACT_EMAIL}`}>
